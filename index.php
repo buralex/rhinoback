@@ -1,74 +1,29 @@
 <?php
 
-$arr = ["h","e","l","l","o"];
+include_once "first_part.php";
+include_once "Root.php";
 
-/*
- * for loop
- */
-$method_1 = function ($arr) {
-	$arr_rev = [];
 
-	for ($i = count($arr)-1; $i >= 0 ; $i--) {
-		$arr_rev[] = $arr[$i];
-	}
-	echo join(" ", $arr_rev);
-};
+// FRONT COTROLLER
 
-/*
- * unshift fnc
- */
-$method_2 = function ($arr) {
-	$arr_rev = [];
+// 1. Общие настройки
 
-	for ($i = 0; $i < count($arr) ; $i++) {
-		array_unshift($arr_rev, $arr[$i]);
-	}
-	echo join(" ", $arr_rev);
-};
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-/*
- * krsort fnc
- */
-$method_3 = function ($arr) {
-	$arr_rev = $arr;
+// 2. Подключение файлов системы
 
-	krsort($arr_rev);
-	echo join(" ", $arr_rev);
-};
+require_once(Root::dir().'/components/Router.php');
 
-echo join(" ", $arr);
-echo "<br>";
+// 3. Установка соединения с БД
 
-$method_1($arr);
-echo "<br>";
 
-$method_2($arr);
-echo "<br>";
+// 4. Вызор Router
 
-$method_3($arr);
+$router = new Router();
+$router->run();
 
-/*----------------------------------------------------
 
--------------------------------------------------------*/
-$url = "http://site.ru/folder/page.html";
-$url1 = "http://sub.site.ru/folder/page.html";
-$url2 = "http://si0-fds_sdk.fjl.te.ru/folder/page.html";
-$url3 = "http://rhinoback/";
 
-function get_domain($url){
-	preg_match('/^(?:http(s)?(?::\/\/))?(www\.)?([a-zA-Z0-9-_\.?]+(\.?[a-zA-Z0-9]{2,}))/', $url, $matches);;
-	echo $matches[3];
-}
 
-echo "<br>";
-get_domain($url);
-
-echo "<br>";
-get_domain($url1);
-
-echo "<br>";
-get_domain($url2);
-
-echo "<br>";
-get_domain($url3);
 
