@@ -60,7 +60,7 @@ $url2 = "http://some.strange_domain-really.tk/folder/page.html";
 class Url
 {
 	static function domain($url){
-		preg_match('/^(?:http(s)?(?::\/\/))?(www\.)?([a-zA-Z0-9-_\.?]+(\.?[a-zA-Z0-9]{2,}))/', $url, $matches);;
+		preg_match('/^(?:http(s)?(?::\/\/))?(www\.)?([a-zA-Z0-9-_\.?]+(\.?[a-zA-Z0-9]{2,}))/', $url, $matches);
 		return $matches[3];
 	}
 }
