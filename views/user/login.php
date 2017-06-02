@@ -23,8 +23,6 @@
                     </form>
                     <h2><a href="/user/register">Регистрация</a></h2>
                 </div><!--/sign up form-->
-
-
                 <br/>
                 <br/>
             </div>

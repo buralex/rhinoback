@@ -8,9 +8,9 @@
         <title>Главная</title>
         <link href="/template/css/bootstrap.min.css" rel="stylesheet">
         <link href="/template/css/font-awesome.min.css" rel="stylesheet">
-        <link href="/template/css/prettyPhoto.css" rel="stylesheet">
-        <link href="/template/css/price-range.css" rel="stylesheet">
-        <link href="/template/css/animate.css" rel="stylesheet">
+<!--        <link href="/template/css/prettyPhoto.css" rel="stylesheet">-->
+<!--        <link href="/template/css/price-range.css" rel="stylesheet">-->
+<!--        <link href="/template/css/animate.css" rel="stylesheet">-->
         <link href="/template/css/main.css" rel="stylesheet">
         <link href="/template/css/responsive.css" rel="stylesheet">
 
@@ -32,23 +32,8 @@
             <header id="header"><!--header-->
                 <div class="header_top"><!--header_top-->
                     <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="contactinfo">
-                                    <ul class="nav nav-pills">
-                                        <li><a href="#"><i class="fa fa-phone"></i> +38 093 000 11 22</a></li>
-                                        <li><a href="#"><i class="fa fa-envelope"></i> zinchenko.us@gmail.com</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="social-icons pull-right">
-                                    <ul class="nav navbar-nav">
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class="row text-center">
+                                <h1>Тестовое задание для back-end-a</h1>
                         </div>
                     </div>
                 </div><!--/header_top-->
@@ -64,12 +49,7 @@
                             <div class="col-sm-8">
                                 <div class="shop-menu pull-right">
                                     <ul class="nav navbar-nav">
-                                        <li><a href="/cart">
-                                                <i class="fa fa-shopping-cart"></i> Корзина 
-                                                (<span id="cart-count"><?php echo Cart::countItems(); ?></span>)
-                                            </a>
-                                        </li>
-                                        <?php if (User::isGuest()): ?>                                        
+                                        <?php if (User::isGuest()): ?>
                                             <li><a href="/user/login/"><i class="fa fa-lock"></i> Вход</a></li>
                                         <?php else: ?>
                                             <li><a href="/cabinet/"><i class="fa fa-user"></i> Аккаунт</a></li>
@@ -96,15 +76,9 @@
                                 </div>
                                 <div class="mainmenu pull-left">
                                     <ul class="nav navbar-nav collapse navbar-collapse">
-                                        <li><a href="/">Главная</a></li>
-                                        <li class="dropdown"><a href="#">Магазин<i class="fa fa-angle-down"></i></a>
-                                            <ul role="menu" class="sub-menu">
-                                                <li><a href="/catalog/">Каталог товаров</a></li>
-                                                <li><a href="/cart/">Корзина</a></li> 
-                                            </ul>
-                                        </li>
-                                        <li><a href="/about/">О магазине</a></li>
-                                        <li><a href="/contacts/">Контакты</a></li>
+                                        <li><a href="/reverse/">1. РЕВЕРС МАССИВА</a></li>
+                                        <li><a href="/getarray/">2. ИЗВЛЕЧЕНИЕ ДОМЕНА </a></li>
+                                        <li><a href="/library/">3. БИБЛИОТЕКА</a></li>
                                     </ul>
                                 </div>
                             </div>

@@ -5,8 +5,8 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
-                <p class="pull-left">Copyright © 2015</p>
-                <p class="pull-right">Курс PHP Start</p>
+                <p class="pull-left">Copyright © 2017</p>
+                <p class="pull-right">Alexandr Burlachenko</p>
             </div>
         </div>
     </div>
@@ -23,16 +23,22 @@
 <script src="/template/js/jquery.prettyPhoto.js"></script>
 <script src="/template/js/main.js"></script>
 <script>
-    $(document).ready(function(){
-        $(".add-to-cart").click(function () {
-            var id = $(this).attr("data-id");
-            $.post("/cart/addAjax/"+id, {}, function (data) {
-                $("#cart-count").html(data);
-            });
-            return false;
-        });
-    });
-</script>
+//    $(document).ready(function(){
+//        $(".add-to-cart").click(function () {
+//            var id = $(this).attr("data-id");
+//            $.post("/cart/addAjax/"+id, {}, function (data) {
+//                $("#cart-count").html(data);
+//            });
+//            return false;
+//        });
 
+//        $("input").keydown(function(){
+//            var txt = $(".search-field").val();
+//            $.post("search.php", {suggest: txt}, function(result){
+//                $("#txtHint").html(result);
+//            });
+//        });
+//    });
+</script>
 </body>
 </html>

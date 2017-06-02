@@ -38,16 +38,16 @@ class AdminProductController extends AdminBase
         if (isset($_POST['submit'])) {
             // Если форма отправлена
             // Получаем данные из формы
-            $options['name'] = $_POST['name'];
-            $options['code'] = $_POST['code'];
-            $options['price'] = $_POST['price'];
-            $options['category_id'] = $_POST['category_id'];
-            $options['brand'] = $_POST['brand'];
-            $options['availability'] = $_POST['availability'];
-            $options['description'] = $_POST['description'];
-            $options['is_new'] = $_POST['is_new'];
-            $options['is_recommended'] = $_POST['is_recommended'];
-            $options['status'] = $_POST['status'];
+            $options['book_title'] = $_POST['book_title'];
+            $options['authors'] = $_POST['authors'];
+//            $options['price'] = $_POST['price'];
+//            $options['category_id'] = $_POST['category_id'];
+//            $options['brand'] = $_POST['brand'];
+//            $options['availability'] = $_POST['availability'];
+//            $options['description'] = $_POST['description'];
+//            $options['is_new'] = $_POST['is_new'];
+//            $options['is_recommended'] = $_POST['is_recommended'];
+//            $options['status'] = $_POST['status'];
 
             // Флаг ошибок в форме
             $errors = false;
@@ -56,8 +56,9 @@ class AdminProductController extends AdminBase
             if (!isset($options['name']) || empty($options['name'])) {
                 $errors[] = 'Заполните поля';
             }
+			var_dump($errors);
 
-            if ($errors == false) {
+            if (isset($_POST['submit'])) {
                 // Если ошибок нет
                 // Добавляем новый товар
                 $id = Product::createProduct($options);

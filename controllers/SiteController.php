@@ -70,10 +70,23 @@ class SiteController
     /**
      * Action для страницы "О магазине"
      */
-    public function actionAbout()
+    public function actionLibrary()
     {
+
+		if (isset($_POST['search_field'])) {
+			// Если форма отправлена
+			// Получаем данные из формы
+			var_dump($_POST['search_field']);
+
+			$hint = Library::get_bookor_author();
+			var_dump($hint);
+		}
+
+
+
+
         // Подключаем вид
-        require_once(ROOT . '/views/site/about.php');
+        require_once(ROOT . '/views/site/library.php');
         return true;
     }
 

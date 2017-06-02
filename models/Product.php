@@ -33,7 +33,7 @@ class Product
         $result->setFetchMode(PDO::FETCH_ASSOC);
         
         // Выполнение коменды
-        $result->execute();
+//        $result->execute();
 
         // Получение и возврат результатов
         $i = 0;
@@ -98,23 +98,10 @@ class Product
     public static function getProductById($id)
     {
         // Соединение с БД
-        $db = Db::getConnection();
 
-        // Текст запроса к БД
-        $sql = 'SELECT * FROM product WHERE id = :id';
-
-        // Используется подготовленный запрос
-        $result = $db->prepare($sql);
-        $result->bindParam(':id', $id, PDO::PARAM_INT);
-
-        // Указываем, что хотим получить данные в виде массива
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-
-        // Выполнение коменды
-        $result->execute();
 
         // Получение и возврат результатов
-        return $result->fetch();
+        //return $result->fetch();
     }
 
     /**
@@ -186,19 +173,19 @@ class Product
         $db = Db::getConnection();
 
         // Получение и возврат результатов
-        $result = $db->query('SELECT id, name, price, is_new FROM product '
-                . 'WHERE status = "1" AND is_recommended = "1" '
-                . 'ORDER BY id DESC');
-        $i = 0;
-        $productsList = array();
-        while ($row = $result->fetch()) {
-            $productsList[$i]['id'] = $row['id'];
-            $productsList[$i]['name'] = $row['name'];
-            $productsList[$i]['price'] = $row['price'];
-            $productsList[$i]['is_new'] = $row['is_new'];
-            $i++;
-        }
-        return $productsList;
+//        $result = $db->query('SELECT id, name, price, is_new FROM product '
+//                . 'WHERE status = "1" AND is_recommended = "1" '
+//                . 'ORDER BY id DESC');
+//        $i = 0;
+//        $productsList = array();
+//        while ($row = $result->fetch()) {
+//            $productsList[$i]['id'] = $row['id'];
+//            $productsList[$i]['name'] = $row['name'];
+//            $productsList[$i]['price'] = $row['price'];
+//            $productsList[$i]['is_new'] = $row['is_new'];
+//            $i++;
+//        }
+        //return $productsList;
     }
 
     /**
@@ -211,16 +198,53 @@ class Product
         $db = Db::getConnection();
 
         // Получение и возврат результатов
-        $result = $db->query('SELECT id, name, price, code FROM product ORDER BY id ASC');
-        $productsList = array();
-        $i = 0;
-        while ($row = $result->fetch()) {
-            $productsList[$i]['id'] = $row['id'];
-            $productsList[$i]['name'] = $row['name'];
-            $productsList[$i]['code'] = $row['code'];
-            $productsList[$i]['price'] = $row['price'];
-            $i++;
-        }
+		$productsList = [];
+
+//		$sql = ('SELECT authors.author_id, author_lastname '
+//				.'FROM authors INNER JOIN books_authors '
+//				.'ON authors.author_id = books_authors.author_id '
+//				.'WHERE books_authors.book_id = "72"');
+
+
+		//$sql = ('SELECT books.book_title, authors.author_lastname, FROM books, authors, books_authors');
+
+//		SELECT isbn, title, author_ordinal, first, last
+//   FROM books b
+//   LEFT JOIN books_authors ba ON (b.id = ba.book_id)
+//   LEFT JOIN authors a ON (ba.author_id = a.id)
+//  WHERE isbn = '978whatever'
+
+		$sql = ('SELECT a.author_id, author_lastname '
+				.'FROM books b LEFT JOIN books_authors ba '
+				.'ON (b.book_id = ba.book_id) '
+				.'LEFT JOIN authors a ON (ba.author_id = a.author_id) '
+				.'WHERE book_title LIKE "new%"');
+
+		var_dump($sql);
+
+		//$sql = ('SELECT book_id, title  FROM books ORDER BY book_id ASC');
+
+
+		$result = $db->prepare($sql);
+
+		$result->execute();
+
+		$row  = $result->fetchAll(PDO::FETCH_ASSOC);
+
+
+		foreach ($row as $item) {
+			$productsList[] = $item;
+			//$productsList['title'] = $item['title'];
+		}
+		var_dump($productsList);
+//        $i = 0;
+//        while ($row = $result->fetch()) {
+//            $productsList[$i]['id'] = $row['id'];
+//            $productsList[$i]['name'] = $row['name'];
+//            $productsList[$i]['code'] = $row['code'];
+//            $productsList[$i]['price'] = $row['price'];
+//            $i++;
+//        }
         return $productsList;
     }
 
@@ -294,31 +318,46 @@ class Product
     {
         // Соединение с БД
         $db = Db::getConnection();
+		var_dump($options);
 
-        // Текст запроса к БД
-        $sql = 'INSERT INTO product '
-                . '(name, code, price, category_id, brand, availability,'
-                . 'description, is_new, is_recommended, status)'
-                . 'VALUES '
-                . '(:name, :code, :price, :category_id, :brand, :availability,'
-                . ':description, :is_new, :is_recommended, :status)';
+		$sql = 'INSERT INTO books (book_title) VALUES (:book_title)';
+		$result = $db->prepare($sql);
 
-        // Получение и возврат результатов. Используется подготовленный запрос
-        $result = $db->prepare($sql);
-        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
-        $result->bindParam(':code', $options['code'], PDO::PARAM_STR);
-        $result->bindParam(':price', $options['price'], PDO::PARAM_STR);
-        $result->bindParam(':category_id', $options['category_id'], PDO::PARAM_INT);
-        $result->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
-        $result->bindParam(':availability', $options['availability'], PDO::PARAM_INT);
-        $result->bindParam(':description', $options['description'], PDO::PARAM_STR);
-        $result->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
-        $result->bindParam(':is_recommended', $options['is_recommended'], PDO::PARAM_INT);
-        $result->bindParam(':status', $options['status'], PDO::PARAM_INT);
-        if ($result->execute()) {
-            // Если запрос выполенен успешно, возвращаем id добавленной записи
-            return $db->lastInsertId();
+        if ($result->execute([':book_title' => $options['book_title']])) {
+            $last_book_id = $db->lastInsertId();
+			var_dump($last_book_id);
         }
+
+		$sql = 'INSERT INTO authors (author_lastname) VALUES (:author_lastname)';
+		$result = $db->prepare($sql);
+		$authors = explode(PHP_EOL, rtrim($options['authors'], PHP_EOL));
+		//$authors = explode(PHP_EOL, $options['authors']);
+		var_dump($authors);
+		$authors_ids = [];
+		//die();
+		foreach ($authors as $item) {
+
+			if ($result->execute([':author_lastname' => $item])) {
+
+				$last_author_id = $db->lastInsertId();
+				$authors_ids[] = $last_author_id;
+				//var_dump($authors_ids);
+			}
+
+		}
+
+
+		$sql = 'INSERT INTO books_authors (book_id, author_id) VALUES (:book_id, :author_id)';
+		$result = $db->prepare($sql);
+
+		foreach ($authors_ids as $item) {
+
+			if ($result->execute([':book_id' => $last_book_id, ':author_id' => $item])) {
+				$last_author_id = $db->lastInsertId();
+			}
+		}
+
+
         // Иначе возвращаем 0
         return 0;
     }
