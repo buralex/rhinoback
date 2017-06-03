@@ -1,8 +1,8 @@
 <?php include ROOT . '/views/layouts/header.php'; ?>
 
     <script>
-        function showHint() {
-            if (false) {
+        function showHint(str) {
+            if (str.length == 0) {
                 document.getElementById("txtHint").innerHTML = "";
                 return;
             } else {
@@ -34,10 +34,10 @@
                 <img src="/template/images/schema.jpg" alt="">
                 <h4>Введите название книги или автора</h4>
                 <form action="" method="post">
-                    <input type="text" name="title" onkeyup="showHint()" autocomplete="off">
-<!--                    <input type="text" name="search_field"  class=".search-field">-->
+                    <input type="text" name="title" onkeyup="showHint(this.value)" autocomplete="off">
+                    <input type="submit" name="submit" class="btn btn-default" value=">>" />
                 </form>
-                <p>Suggestions: <span id="txtHint"></span></p>
+                <div id="txtHint"></div>
             </div>
         </div>
     </div>

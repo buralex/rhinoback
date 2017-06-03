@@ -1,24 +1,11 @@
 <?php
 
-//var_dump($_POST['title']);
-
-if (isset($_POST['title'])) {
-	// Если форма отправлена
-	// Получаем данные из формы
-//			var_dump($_POST['search_field']);
-//
-//			$a = Library::get_bookor_author();
-//			var_dump($a);
-	//$var = 'this is var';
-}
 
 
-//$q = $_POST["title"];
-
-$a = ['lena', 'ira', 'misha'];
+$a = ['lena', 'ira', 'misha', 'Lisa', "Masha"];
 
 
-//var_dump($q);
+
 $q = ($_POST['title']);
 $hint = "";
 
@@ -26,16 +13,16 @@ $hint = "";
 if ($q !== "") {
 	$q = strtolower($q);
 	$len=strlen($q);
-	var_dump($len);
+//	var_dump($len);
 	foreach($a as $name) {
 		if (stristr($q, $aaa = substr($name, 0, $len))) {
-			var_dump($q);
-			var_dump($aaa);
+//			var_dump($q);
+//			var_dump($aaa);
 
 			if ($hint === "") {
 				$hint = $name;
 			} else {
-				$hint .= ", $name";
+				$hint .= "<br>" . "$name";
 			}
 		}
 	}

@@ -4,23 +4,23 @@
  * Контроллер ProductController
  * Товар
  */
-class ProductController
+class BookController
 {
 
     /**
      * Action для страницы просмотра товара
      * @param integer $productId <p>id товара</p>
      */
-    public function actionView($productId)
+    public function actionView($bookId)
     {
         // Список категорий для левого меню
-        $categories = Category::getCategoriesList();
+        //$categories = Category::getCategoriesList();
 
         // Получаем инфомрацию о товаре
-        $product = Product::getProductById($productId);
+        $book = Book::getBookById($bookId);
 
         // Подключаем вид
-        require_once(ROOT . '/views/product/view.php');
+        require_once ROOT . '/views/book/view.php';
         return true;
     }
 

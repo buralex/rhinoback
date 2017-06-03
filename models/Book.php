@@ -3,7 +3,7 @@
 /**
  * Класс Product - модель для работы с товарами
  */
-class Product
+class Book
 {
 
     // Количество отображаемых товаров по умолчанию
@@ -95,7 +95,7 @@ class Product
      * @param integer $id <p>id товара</p>
      * @return array <p>Массив с информацией о товаре</p>
      */
-    public static function getProductById($id)
+    public static function getBookById($id)
     {
         // Соединение с БД
 
@@ -314,7 +314,7 @@ class Product
      * @param array $options <p>Массив с информацией о товаре</p>
      * @return integer <p>id добавленной в таблицу записи</p>
      */
-    public static function createProduct($options)
+    public static function createBook($options)
     {
         // Соединение с БД
         $db = Db::getConnection();

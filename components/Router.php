@@ -23,7 +23,7 @@ class Router
 
         // Получаем роуты из файла
         $this->routes = include_once "$routesPath";
-		var_dump($this->routes);
+		//var_dump($this->routes);
     }
 
     /**

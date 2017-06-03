@@ -4,7 +4,7 @@
  * Контроллер AdminProductController
  * Управление товарами в админпанели
  */
-class AdminProductController extends AdminBase
+class AdminBookController extends AdminBase
 {
 
     /**
@@ -16,10 +16,10 @@ class AdminProductController extends AdminBase
         self::checkAdmin();
 
         // Получаем список товаров
-        $productsList = Product::getProductsList();
+        //$productsList = Product::getProductsList();
 
         // Подключаем вид
-        require_once(ROOT . '/views/admin_product/index.php');
+        require_once(ROOT . '/views/admin_book/index.php');
         return true;
     }
 
@@ -61,7 +61,7 @@ class AdminProductController extends AdminBase
             if (isset($_POST['submit'])) {
                 // Если ошибок нет
                 // Добавляем новый товар
-                $id = Product::createProduct($options);
+                $id = Book::createBook($options);
 
                 // Если запись добавлена
                 if ($id) {
@@ -73,12 +73,12 @@ class AdminProductController extends AdminBase
                 };
 
                 // Перенаправляем пользователя на страницу управлениями товарами
-                header("Location: /admin/product");
+                header("Location: /admin/book");
             }
         }
 
         // Подключаем вид
-        require_once(ROOT . '/views/admin_product/create.php');
+        require_once ROOT . '/views/admin_book/create.php';
         return true;
     }
 

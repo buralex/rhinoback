@@ -1,19 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: alex
- * Date: 02.06.2017
- * Time: 13:16
- */
-
-//$text = $_POST['title'];
-//echo $text;
-//var_dump($_GET);
-
-//define('TEXT', $_GET);
-
-
 class Library
 {
 

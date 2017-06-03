@@ -3,11 +3,10 @@
 /**
  * Контроллер CartController
  */
-class SiteController
+class LibraryController
 {
-
     /**
-     * Action для главной страницы
+     * Action for library
      */
     public function actionIndex()
     {
@@ -19,9 +18,13 @@ class SiteController
 //
 //        // Список товаров для слайдера
 //        $sliderProducts = Product::getRecommendedProducts();
+		if (isset($_POST['title'])) {
+			var_dump($_POST['title']);
+
+		}
 
         // Подключаем вид
-        require_once ROOT . '/views/site/index.php ';
+		require_once ROOT . '/views/site/library.php';
         return true;
     }
 
@@ -66,25 +69,9 @@ class SiteController
 //        require_once ROOT . '/views/site/contact.php';
 //        return true;
     }
-
-
-	public function actionReverse()
-	{
-
-
-
-		// Подключаем вид
-		require_once(ROOT . '/views/site/reverse.php');
-		return true;
-	}
-
-	public function actionExtract()
-	{
-
-
-		// Подключаем вид
-		require_once ROOT . '/views/site/extract.php';
-		return true;
-	}
+    
+    /**
+     * Action для страницы 'О магазине'
+     */
 
 }
