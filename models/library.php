@@ -6,13 +6,34 @@
  * Date: 02.06.2017
  * Time: 13:16
  */
-class library
+
+//$text = $_POST['title'];
+//echo $text;
+//var_dump($_GET);
+
+//define('TEXT', $_GET);
+
+
+class Library
 {
+
+
+	public static function show_text()
+	{
+		var_dump('show_text work');
+//		var_dump($_GET);
+
+		var_dump(TEXT);
+		//var_dump($_POST);
+		//$text = $_POST['title'];
+	}
+
 	public static function get_bookor_author()
 	{
 //		$db = Db::getConnection();
 //		$productsList = [];
-//
+
+
 //		$sql = ('SELECT a.author_id, author_lastname '
 //			.'FROM books b LEFT JOIN books_authors ba '
 //			.'ON (b.book_id = ba.book_id) '
@@ -35,6 +56,7 @@ class library
 //		}
 //		var_dump($productsList);
 //	$search_q = $_POST['search_field'];
+		$q = ' ';
 	$q = $_POST['search_field'];
 //		$search_q = preg_replace(".*", "", $search_q);
 //
@@ -57,38 +79,15 @@ class library
 
 
 		//var_dump($sql);
-//		var_dump($search_q);
 		$book_titles = [];
 		$authors_names = [];
 		$a = [];
 		foreach ($row as $item => $value) {
-//			$book_titles[] = [$item['book_title']];
-//			$authors_names[] = [$item['author_lastname']];
 			$a[] = $value['author_lastname'];
 		}
 
-// get the q parameter from URL
-		//$q = $_REQUEST["q"];
 		var_dump($row);
-		$hint = " ";
-//		//$a = ['helen'];
-//// lookup all hints from array if $q is different from ""
-//		if ($q !== "") {
-//			$q = strtolower($q);
-//			$len=strlen($q);
-//			foreach($a as $name) {
-//				if (stristr($q, substr($name, 0, $len))) {
-//					if ($hint === "") {
-//						$hint = $name;
-//					} else {
-//						$hint .= ", $name";
-//					}
-//				}
-//			}
-//		}
-//
-//// Output "no suggestion" if no hint was found or output correct values
-		return $hint === "" ? "no suggestion" : $hint;
+		return "fsdafasdfasdfas" ;
 
 	}
 }

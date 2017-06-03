@@ -22,7 +22,8 @@ class Router
         $routesPath = ROOT . '/config/routes.php';
 
         // Получаем роуты из файла
-        $this->routes = include($routesPath);
+        $this->routes = include_once "$routesPath";
+		var_dump($this->routes);
     }
 
     /**
@@ -53,22 +54,19 @@ class Router
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
 
                 // Определить контроллер, action, параметры
-
                 $segments = explode('/', $internalRoute);
 
-                $controllerName = array_shift($segments) . 'Controller';
-                $controllerName = ucfirst($controllerName);
+                $controllerName = ucfirst(array_shift($segments)) . 'Controller';
 
                 $actionName = 'action' . ucfirst(array_shift($segments));
 
                 $parameters = $segments;
 
                 // Подключить файл класса-контроллера
-                $controllerFile = ROOT . '/controllers/' .
-                        $controllerName . '.php';
+                $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
 
                 if (file_exists($controllerFile)) {
-                    include_once($controllerFile);
+                    include_once "$controllerFile";
                 }
 
                 // Создать объект, вызвать метод (т.е. action)

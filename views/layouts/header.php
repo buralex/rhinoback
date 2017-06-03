@@ -8,9 +8,6 @@
         <title>Главная</title>
         <link href="/template/css/bootstrap.min.css" rel="stylesheet">
         <link href="/template/css/font-awesome.min.css" rel="stylesheet">
-<!--        <link href="/template/css/prettyPhoto.css" rel="stylesheet">-->
-<!--        <link href="/template/css/price-range.css" rel="stylesheet">-->
-<!--        <link href="/template/css/animate.css" rel="stylesheet">-->
         <link href="/template/css/main.css" rel="stylesheet">
         <link href="/template/css/responsive.css" rel="stylesheet">
 
@@ -77,7 +74,7 @@
                                 <div class="mainmenu pull-left">
                                     <ul class="nav navbar-nav collapse navbar-collapse">
                                         <li><a href="/reverse/">1. РЕВЕРС МАССИВА</a></li>
-                                        <li><a href="/getarray/">2. ИЗВЛЕЧЕНИЕ ДОМЕНА </a></li>
+                                        <li><a href="/extract/">2. ИЗВЛЕЧЕНИЕ ДОМЕНА </a></li>
                                         <li><a href="/library/">3. БИБЛИОТЕКА</a></li>
                                     </ul>
                                 </div>

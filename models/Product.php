@@ -218,7 +218,7 @@ class Product
 				.'FROM books b LEFT JOIN books_authors ba '
 				.'ON (b.book_id = ba.book_id) '
 				.'LEFT JOIN authors a ON (ba.author_id = a.author_id) '
-				.'WHERE book_title LIKE "new%"');
+				.'WHERE book_title LIKE "%"');
 
 		var_dump($sql);
 
