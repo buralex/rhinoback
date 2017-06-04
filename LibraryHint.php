@@ -14,7 +14,7 @@ $hint = "";
 $sql = 'SELECT * FROM books WHERE book_title LIKE ?';
 $result = $db->prepare($sql);
 
-$param = $_POST['title']; // search text - to param
+$param = $_POST['book_title']; // search text - to param
 
 if ($result->execute(["%$param%"])) {
 	//$last_book_id = $db->lastInsertId();

@@ -20,7 +20,7 @@ class Library
 //		$productsList = [];
 
 
-//		$sql = ('SELECT a.author_id, author_lastname '
+//		$sql = ('SELECT a.author_id, author_name '
 //			.'FROM books b LEFT JOIN books_authors ba '
 //			.'ON (b.book_id = ba.book_id) '
 //			.'LEFT JOIN authors a ON (ba.author_id = a.author_id) '
@@ -47,13 +47,13 @@ class Library
 //		$search_q = preg_replace(".*", "", $search_q);
 //
 		$db = Db::getConnection();
-//		$sql = ('SELECT author_lastname, book_title FROM authors LEFT JOIN books');
-//		$sql = ('SELECT ba.author_id, ba.book_id, a.author_lastname, b.book_title '
+//		$sql = ('SELECT author_name, book_title FROM authors LEFT JOIN books');
+//		$sql = ('SELECT ba.author_id, ba.book_id, a.author_name, b.book_title '
 //				.'FROM books_authors ba '
 //         		.'LEFT JOIN books b ON b.book_id = ba.book_id '
 //				.'LEFT JOIN authors a ON a.author_id = ba.author_id');
 
-		$sql = ('SELECT a.author_id, author_lastname '
+		$sql = ('SELECT a.author_id, author_name '
 			.'FROM books b LEFT JOIN books_authors ba '
 			.'ON (b.book_id = ba.book_id) '
 			.'LEFT JOIN authors a ON (ba.author_id = a.author_id) '
@@ -69,7 +69,7 @@ class Library
 		$authors_names = [];
 		$a = [];
 		foreach ($row as $item => $value) {
-			$a[] = $value['author_lastname'];
+			$a[] = $value['author_name'];
 		}
 
 		var_dump($row);

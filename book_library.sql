@@ -31,7 +31,7 @@ USE `book_library`;
 CREATE TABLE `authors` (
   `author_id` int(11) NOT NULL,
   `author_firstname` text NOT NULL,
-  `author_lastname` text NOT NULL,
+  `author_name` text NOT NULL,
   `author_pseudonim` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

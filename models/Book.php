@@ -97,12 +97,47 @@ class Book
      */
     public static function getBookById($id)
     {
-        // Соединение с БД
+		$db = Db::getConnection();
 
+		// Текст запроса к БД
+		$sql = 'SELECT book_title FROM books WHERE book_id = :book_id';
 
-        // Получение и возврат результатов
-        //return $result->fetch();
+		// Используется подготовленный запрос
+		$result = $db->prepare($sql);
+		$result->bindParam(':book_id', $id, PDO::PARAM_INT);
+
+		// Указываем, что хотим получить данные в виде массива
+		$result->setFetchMode(PDO::FETCH_ASSOC);
+
+		// Выполнение коменды
+		$result->execute();
+
+		// Получение и возврат результатов
+		return $result->fetch();
     }
+
+	public static function getAuthorsByBookId($id)
+	{
+		$db = Db::getConnection();
+
+				$sql = ('SELECT author_name, authors.author_id '
+						.'FROM authors INNER JOIN books_authors '
+						.'ON authors.author_id = books_authors.author_id '
+						.'WHERE books_authors.book_id = :book_id');
+
+		// Используется подготовленный запрос
+		$result = $db->prepare($sql);
+		$result->bindParam(':book_id', $id, PDO::PARAM_INT);
+
+		// Указываем, что хотим получить данные в виде массива
+		$result->setFetchMode(PDO::FETCH_ASSOC);
+
+		// Выполнение коменды
+		$result->execute();
+
+		// Получение и возврат результатов
+		return $result->fetchAll();
+	}
 
     /**
      * Возвращаем количество товаров в указанной категории
@@ -192,36 +227,41 @@ class Book
      * Возвращает список товаров
      * @return array <p>Массив с товарами</p>
      */
-    public static function getProductsList()
+    public static function getBooksList()
     {
         // Соединение с БД
         $db = Db::getConnection();
 
         // Получение и возврат результатов
-		$productsList = [];
+		$booksList = [];
 
-//		$sql = ('SELECT authors.author_id, author_lastname '
+
+				$sql = ('SELECT book_title, author_name, books.book_id FROM books '
+						.'LEFT JOIN books_authors ON books.book_id = books_authors.book_id '
+						.'LEFT JOIN authors ON books_authors.author_id = authors.author_id');
+
+//		$sql = ('SELECT authors.author_id, author_name '
 //				.'FROM authors INNER JOIN books_authors '
 //				.'ON authors.author_id = books_authors.author_id '
 //				.'WHERE books_authors.book_id = "72"');
 
 
-		//$sql = ('SELECT books.book_title, authors.author_lastname, FROM books, authors, books_authors');
+		//$sql = ('SELECT books.book_title, authors.author_name, FROM books, authors, books_authors');
 
 //		SELECT isbn, title, author_ordinal, first, last
 //   FROM books b
 //   LEFT JOIN books_authors ba ON (b.id = ba.book_id)
 //   LEFT JOIN authors a ON (ba.author_id = a.id)
 //  WHERE isbn = '978whatever'
-
-		$sql = ('SELECT a.author_id, author_lastname '
+/*
+		$sql = ('SELECT a.author_id, author_name '
 				.'FROM books b LEFT JOIN books_authors ba '
 				.'ON (b.book_id = ba.book_id) '
 				.'LEFT JOIN authors a ON (ba.author_id = a.author_id) '
 				.'WHERE book_title LIKE "%"');
 
 		var_dump($sql);
-
+*/
 		//$sql = ('SELECT book_id, title  FROM books ORDER BY book_id ASC');
 
 
@@ -233,10 +273,10 @@ class Book
 
 
 		foreach ($row as $item) {
-			$productsList[] = $item;
+			$booksList[] = $item;
 			//$productsList['title'] = $item['title'];
 		}
-		var_dump($productsList);
+		//var_dump($booksList);
 //        $i = 0;
 //        while ($row = $result->fetch()) {
 //            $productsList[$i]['id'] = $row['id'];
@@ -245,7 +285,7 @@ class Book
 //            $productsList[$i]['price'] = $row['price'];
 //            $i++;
 //        }
-        return $productsList;
+        return $booksList;
     }
 
     /**
@@ -273,42 +313,63 @@ class Book
      * @param array $options <p>Массив с информацей о товаре</p>
      * @return boolean <p>Результат выполнения метода</p>
      */
-    public static function updateProductById($id, $options)
+    public static function updateBookById($id, $options, $authors_ids)
     {
         // Соединение с БД
         $db = Db::getConnection();
 
         // Текст запроса к БД
-        $sql = "UPDATE product
-            SET 
-                name = :name, 
-                code = :code, 
-                price = :price, 
-                category_id = :category_id, 
-                brand = :brand, 
-                availability = :availability, 
-                description = :description, 
-                is_new = :is_new, 
-                is_recommended = :is_recommended, 
-                status = :status
-            WHERE id = :id";
+        $sql = "UPDATE books SET book_title = :book_title WHERE book_id = :book_id";
 
         // Получение и возврат результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
-        $result->bindParam(':id', $id, PDO::PARAM_INT);
-        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
-        $result->bindParam(':code', $options['code'], PDO::PARAM_STR);
-        $result->bindParam(':price', $options['price'], PDO::PARAM_STR);
-        $result->bindParam(':category_id', $options['category_id'], PDO::PARAM_INT);
-        $result->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
-        $result->bindParam(':availability', $options['availability'], PDO::PARAM_INT);
-        $result->bindParam(':description', $options['description'], PDO::PARAM_STR);
-        $result->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
-        $result->bindParam(':is_recommended', $options['is_recommended'], PDO::PARAM_INT);
-        $result->bindParam(':status', $options['status'], PDO::PARAM_INT);
-        return $result->execute();
+        $result->bindParam(':book_id', $id, PDO::PARAM_INT);
+        $result->bindParam(':book_title', $options['book_title'], PDO::PARAM_INT);
+		$result->execute();
+
+		$authors = explode(PHP_EOL, rtrim($options['authors'], PHP_EOL));
+		var_dump($authors_ids);
+		var_dump($authors);
+
+//die();
+		$sql = "UPDATE authors SET author_name = :author_name WHERE author_id = :author_id";
+		$x = 0;
+		foreach ($authors as $author) {
+			$result = $db->prepare($sql);
+			$result->bindParam(':author_name', $author, PDO::PARAM_INT);
+			$result->bindParam(':author_id', $authors_ids[$x], PDO::PARAM_INT);
+			$result->execute();
+			$x++;
+		}
+
+		//return ;
     }
 
+
+	public static function checkBookExists($book_title)
+	{
+		// Соединение с БД
+		$db = Db::getConnection();
+
+		// Текст запроса к БД
+		//$sql = 'SELECT COUNT(*) FROM user WHERE email = :email';
+		$sql = 'SELECT COUNT(*) FROM books WHERE book_title LIKE ?';
+
+		// Получение результатов. Используется подготовленный запрос
+		$result = $db->prepare($sql);
+		//$result->bindParam(':email', $email, PDO::PARAM_STR);
+//		$param = $_POST['authors'];
+//		var_dump($param);
+		$result->execute(["%$book_title%"]);
+//		$row = $result->fetchAll(PDO::FETCH_ASSOC);
+//		var_dump($row);
+
+		if ( $id_exist = $result->fetchColumn()){
+			return $id_exist;
+		}
+
+		return false;
+	}
 
 	public static function checkAuthorExists($author_name)
 	{
@@ -316,15 +377,22 @@ class Book
 		$db = Db::getConnection();
 
 		// Текст запроса к БД
-		$sql = 'SELECT authors_lasname FROM authors WHERE author_lastname = :author_lastname';
+		//$sql = 'SELECT COUNT(*) FROM user WHERE email = :email';
+		$sql = 'SELECT author_id, COUNT(*) FROM authors WHERE author_name LIKE ?';
 
 		// Получение результатов. Используется подготовленный запрос
 		$result = $db->prepare($sql);
 		//$result->bindParam(':email', $email, PDO::PARAM_STR);
-		$result->execute();
+//		$param = $_POST['authors'];
+//		var_dump($param);
+		$result->execute(["%$author_name%"]);
+//		$row = $result->fetchAll(PDO::FETCH_ASSOC);
+//		var_dump($row);
 
-		if ($result->fetchColumn())
-			return true;
+		if ( $id_exist = $result->fetchColumn()){
+			return $id_exist;
+		}
+
 		return false;
 	}
 
@@ -337,7 +405,7 @@ class Book
     {
         // Соединение с БД
         $db = Db::getConnection();
-		var_dump($options);
+		//var_dump($options);
 
 		$sql = 'INSERT INTO books (book_title) VALUES (:book_title)';
 		$result = $db->prepare($sql);
@@ -347,16 +415,19 @@ class Book
 			var_dump($last_book_id);
         }
 
-		$sql = 'INSERT INTO authors (author_lastname) VALUES (:author_lastname)';
-		$result = $db->prepare($sql);
 		$authors = explode(PHP_EOL, rtrim($options['authors'], PHP_EOL));
-		//$authors = explode(PHP_EOL, $options['authors']);
-		var_dump($authors);
+
+		$sql = 'INSERT INTO authors (author_name) VALUES (:author_name)';
+		$result = $db->prepare($sql);
 		$authors_ids = [];
 		//die();
-		foreach ($authors as $item) {
+		foreach ($authors as $author) {
 
-			if ($result->execute([':author_lastname' => $item])) {
+			if ( $id_exist = self::checkAuthorExists($author)) {
+
+				$authors_ids[] = $id_exist;
+				//$author
+			} else if ($result->execute([':author_name' => $author])) {
 
 				$last_author_id = $db->lastInsertId();
 				$authors_ids[] = $last_author_id;
@@ -365,6 +436,9 @@ class Book
 
 		}
 
+//var_dump($authors_ids);
+
+		//die();
 
 		$sql = 'INSERT INTO books_authors (book_id, author_id) VALUES (:book_id, :author_id)';
 		$result = $db->prepare($sql);

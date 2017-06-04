@@ -16,7 +16,7 @@ class AdminBookController extends AdminBase
         self::checkAdmin();
 
         // Получаем список товаров
-        //$productsList = Product::getProductsList();
+        $booksList = Book::getBooksList();
 
         // Подключаем вид
         require_once(ROOT . '/views/admin_book/index.php');
@@ -31,6 +31,7 @@ class AdminBookController extends AdminBase
     {
         // Проверка доступа
         self::checkAdmin();
+        $result = false;
 
         // Получаем список категорий для выпадающего списка
         $categoriesList = Category::getCategoriesListAdmin();
@@ -41,42 +42,33 @@ class AdminBookController extends AdminBase
             // Получаем данные из формы
             $options['book_title'] = $_POST['book_title'];
             $options['authors'] = $_POST['authors'];
-//            $options['price'] = $_POST['price'];
-//            $options['category_id'] = $_POST['category_id'];
-//            $options['brand'] = $_POST['brand'];
-//            $options['availability'] = $_POST['availability'];
-//            $options['description'] = $_POST['description'];
-//            $options['is_new'] = $_POST['is_new'];
-//            $options['is_recommended'] = $_POST['is_recommended'];
-//            $options['status'] = $_POST['status'];
 
             // Флаг ошибок в форме
             $errors = false;
 
-            // При необходимости можно валидировать значения нужным образом
-            if (!isset($options['name']) || empty($options['name'])) {
-                $errors[] = 'Заполните поля';
-            }
-			var_dump($errors);
 
-            if (isset($_POST['submit'])) {
+			if ($id_exist = Book::checkBookExists($options['book_title'])) {
+				$errors[] = 'The book is already in the table, id= '.$id_exist;
+//				var_dump('booo i s a ljalsd f');
+//				var_dump($errors);
+			}
+			//die();
+
                 // Если ошибок нет
                 // Добавляем новый товар
-                $id = Book::createBook($options);
+			if ($errors == false) {
+				// Если ошибок нет
+				// Регистрируем пользователя
+				$result = Book::createBook($options);
 
-                // Если запись добавлена
-                if ($id) {
-                    // Проверим, загружалось ли через форму изображение
-                    if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
-                        // Если загружалось, переместим его в нужную папке, дадим новое имя
-                        move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
-                    }
-                };
 
-                // Перенаправляем пользователя на страницу управлениями товарами
-                header("Location: /admin/book");
-            }
-        }
+
+
+			// Перенаправляем пользователя на страницу управлениями товарами
+			header("Location: /admin/book");
+			}
+		}
+
 
         // Подключаем вид
         require_once ROOT . '/views/admin_book/create.php';
@@ -92,45 +84,54 @@ class AdminBookController extends AdminBase
         self::checkAdmin();
 
         // Получаем список категорий для выпадающего списка
-        $categoriesList = Category::getCategoriesListAdmin();
+//        $categoriesList = Category::getCategoriesListAdmin();
 
         // Получаем данные о конкретном заказе
-        $product = Product::getProductById($id);
+        $book = Book::getBookById($id);
+
+        $authors = Book::getAuthorsByBookId($id);
+		$authors_value = "";
+		$authors_ids = [];
+        //$authors_from_new_line = '';
+
+		foreach ($authors as $author) {
+			$authors_value .= $author['author_name'] . "\r\n";
+			$authors_ids[] = $author['author_id'];
+		}
+
+//        var_dump($authors);
+//        var_dump($authors_ids);
+//        echo $authors_value;
+//		die();
+
+
 
         // Обработка формы
         if (isset($_POST['submit'])) {
             // Если форма отправлена
             // Получаем данные из формы редактирования. При необходимости можно валидировать значения
-            $options['name'] = $_POST['name'];
-            $options['code'] = $_POST['code'];
-            $options['price'] = $_POST['price'];
-            $options['category_id'] = $_POST['category_id'];
-            $options['brand'] = $_POST['brand'];
-            $options['availability'] = $_POST['availability'];
-            $options['description'] = $_POST['description'];
-            $options['is_new'] = $_POST['is_new'];
-            $options['is_recommended'] = $_POST['is_recommended'];
-            $options['status'] = $_POST['status'];
+			$options['book_title'] = $_POST['book_title'];
+			$options['authors'] = $_POST['authors'];
 
             // Сохраняем изменения
-            if (Product::updateProductById($id, $options)) {
+            if (Book::updateBookById($id, $options, $authors_ids)) {
 
 
                 // Если запись сохранена
                 // Проверим, загружалось ли через форму изображение
-                if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
-
-                    // Если загружалось, переместим его в нужную папке, дадим новое имя
-                   move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
-                }
+//                if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
+//
+//                    // Если загружалось, переместим его в нужную папке, дадим новое имя
+//                   move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
+//                }
             }
 
             // Перенаправляем пользователя на страницу управлениями товарами
-            header("Location: /admin/product");
+            header("Location: /admin/book");
         }
 
         // Подключаем вид
-        require_once(ROOT . '/views/admin_product/update.php');
+        require_once(ROOT . '/views/admin_book/update.php');
         return true;
     }
 

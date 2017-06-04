@@ -18,14 +18,13 @@
             <h3>Add a new book</h3>
 
             <br/>
-
-            <?php if (isset($errors) && is_array($errors)): ?>
+			<?php if (isset($errors) && is_array($errors)): ?>
                 <ul>
-                    <?php foreach ($errors as $error): ?>
-                        <li> - <?php echo $error; ?></li>
-                    <?php endforeach; ?>
+					<?php foreach ($errors as $error): ?>
+                        <li><h2>Error!!!</h2> - <?php echo $error; ?></li>
+					<?php endforeach; ?>
                 </ul>
-            <?php endif; ?>
+			<?php endif; ?>
 
             <div class="col-lg-4">
                 <div class="login-form">
@@ -36,17 +35,14 @@
                         <br>
                         <h4>Authors</h4>
 
-                        <p>( fill in the authors beginning from a NEW LINE each !!! )</p>
-                        <textarea name="authors" placeholder="" cols="10"></textarea>
-
-                        <input type="submit" name="submit" class="btn btn-default" value="Сохранить">
-
+                        <h5>( fill in the authors beginning from a NEW LINE each !!! )</h5>
+                        <textarea name="authors" placeholder="" rows="10"></textarea>
                         <br/><br/>
+                        <input type="submit" name="submit" class="btn btn-default" value="Save">
 
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 </section>

@@ -17,7 +17,8 @@ class BookController
         //$categories = Category::getCategoriesList();
 
         // Получаем инфомрацию о товаре
-        $book = Book::getBookById($bookId);
+        //$book = Book::getBookById($bookId);
+        //var_dump($book);
 
         // Подключаем вид
         require_once ROOT . '/views/book/view.php';
