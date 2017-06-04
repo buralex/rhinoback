@@ -1,5 +1,7 @@
 <?php
 
+//var_dump($_POST);
+
 /**
  * Контроллер CartController
  */

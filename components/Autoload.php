@@ -3,10 +3,9 @@
 /**
  * Функция __autoload для автоматического подключения классов
  */
-function __autoload($class_name)
-{
-    // Массив папок, в которых могут находиться необходимые классы
-    $array_paths = array(
+spl_autoload_register(function ($class_name) {
+	$array_paths = array(
+        '/',
         '/models/',
         '/components/',
         '/controllers/',
@@ -23,4 +22,4 @@ function __autoload($class_name)
             include_once $path;
         }
     }
-}
+});

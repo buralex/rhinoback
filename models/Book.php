@@ -309,6 +309,25 @@ class Book
         return $result->execute();
     }
 
+
+	public static function checkAuthorExists($author_name)
+	{
+		// Соединение с БД
+		$db = Db::getConnection();
+
+		// Текст запроса к БД
+		$sql = 'SELECT authors_lasname FROM authors WHERE author_lastname = :author_lastname';
+
+		// Получение результатов. Используется подготовленный запрос
+		$result = $db->prepare($sql);
+		//$result->bindParam(':email', $email, PDO::PARAM_STR);
+		$result->execute();
+
+		if ($result->fetchColumn())
+			return true;
+		return false;
+	}
+
     /**
      * Добавляет новый товар
      * @param array $options <p>Массив с информацией о товаре</p>

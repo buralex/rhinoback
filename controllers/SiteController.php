@@ -21,7 +21,7 @@ class SiteController
 //        $sliderProducts = Product::getRecommendedProducts();
 
         // Подключаем вид
-        require_once ROOT . '/views/site/index.php ';
+        require_once ROOT . '/views/site/index.php';
         return true;
     }
 

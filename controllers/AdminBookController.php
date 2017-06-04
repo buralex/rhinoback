@@ -23,6 +23,7 @@ class AdminBookController extends AdminBase
         return true;
     }
 
+
     /**
      * Action для страницы "Добавить товар"
      */

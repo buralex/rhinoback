@@ -37,7 +37,7 @@
                         <h4>Authors</h4>
 
                         <p>( fill in the authors beginning from a NEW LINE each !!! )</p>
-                        <textarea name="authors" placeholder="" cols="3"></textarea>
+                        <textarea name="authors" placeholder="" cols="10"></textarea>
 
                         <input type="submit" name="submit" class="btn btn-default" value="Сохранить">
 
