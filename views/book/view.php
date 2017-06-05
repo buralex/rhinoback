@@ -9,10 +9,10 @@
             var xhttp = new XMLHttpRequest();
             var formData = new FormData();
             var dataList = document.querySelector('.data-list');
-            var typedText = document.querySelector('input[name="author_name"]').value;
-            formData.append('author_name', typedText);
 
-            xhttp.open("POST", "../../ShowBooks.php", true);
+            formData.append('author_name', str);
+
+            xhttp.open("POST", "../../FilterBooks.php", true);
 
             xhttp.onload = function(oEvent) {
                 if (xhttp.status == 200) {
@@ -32,7 +32,7 @@
                         // Add the <option> element to the <datalist>.
                         dataList.appendChild(option);
                     });
-                    console.log(this.responseText);
+
                 } else {
                     alert("Error! not sent!");
                 }

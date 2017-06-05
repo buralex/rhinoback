@@ -8,7 +8,7 @@ $db = Db::getConnection();
 
 $hint = "";
 
-$sql = ('SELECT book_title '
+$sql = ('SELECT book_title, b.book_id '
 	.'FROM books b LEFT JOIN books_authors ba '
 	.'ON (b.book_id = ba.book_id) '
 	.'LEFT JOIN authors a ON (ba.author_id = a.author_id) '

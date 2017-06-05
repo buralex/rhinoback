@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июн 05 2017 г., 05:19
+-- Время создания: Июн 05 2017 г., 12:35
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 7.1.2
 
@@ -46,7 +46,8 @@ INSERT INTO `authors` (`author_id`, `author_name`, `author_pseudonim`) VALUES
 (70, 'Mark Twain', ''),
 (71, 'Toni Morrison', ''),
 (72, 'Franz Kafka', ''),
-(73, 'Jonathan Swift', '');
+(73, 'Jonathan Swift', ''),
+(74, 'Stendhal', '');
 
 -- --------------------------------------------------------
 
@@ -70,7 +71,8 @@ INSERT INTO `books` (`book_id`, `book_title`) VALUES
 (63, 'Beloved'),
 (64, 'The Castle'),
 (65, 'Gulliver\'s Travels'),
-(66, 'War and Peace');
+(66, 'War and Peace'),
+(67, 'The Red and the Black');
 
 -- --------------------------------------------------------
 
@@ -97,7 +99,8 @@ INSERT INTO `books_authors` (`books_authors_id`, `book_id`, `author_id`) VALUES
 (86, 63, 71),
 (87, 64, 72),
 (88, 65, 73),
-(89, 66, 57);
+(89, 66, 57),
+(90, 67, 74);
 
 -- --------------------------------------------------------
 
@@ -161,17 +164,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT для таблицы `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT для таблицы `books`
 --
 ALTER TABLE `books`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 --
 -- AUTO_INCREMENT для таблицы `books_authors`
 --
 ALTER TABLE `books_authors`
-  MODIFY `books_authors_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `books_authors_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 --
 -- AUTO_INCREMENT для таблицы `user`
 --

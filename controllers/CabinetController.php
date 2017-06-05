@@ -17,7 +17,6 @@ class CabinetController
 
         // Получаем информацию о пользователе из БД
         $user = User::getUserById($userId);
-		//var_dump($user);
         // Подключаем вид
         require_once(ROOT . '/views/cabinet/index.php');
         return true;

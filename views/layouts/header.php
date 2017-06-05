@@ -47,10 +47,10 @@
                                 <div class="shop-menu pull-right">
                                     <ul class="nav navbar-nav">
                                         <?php if (User::isGuest()): ?>
-                                            <li><a href="/user/login/"><i class="fa fa-lock"></i> Вход</a></li>
+                                            <li><a href="/user/login/"><i class="fa fa-lock"></i> Log in</a></li>
                                         <?php else: ?>
-                                            <li><a href="/cabinet/"><i class="fa fa-user"></i> Аккаунт</a></li>
-                                            <li><a href="/user/logout/"><i class="fa fa-unlock"></i> Выход</a></li>
+                                            <li><a href="/cabinet/"><i class="fa fa-user"></i> Account</a></li>
+                                            <li><a href="/user/logout/"><i class="fa fa-unlock"></i> Log out</a></li>
                                         <?php endif; ?>
                                     </ul>
                                 </div>

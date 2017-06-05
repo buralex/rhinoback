@@ -7,7 +7,7 @@
             <div class="col-sm-4 col-sm-offset-4 padding-right">
                 
                 <?php if ($result): ?>
-                    <p>Данные отредактированы!</p>
+                    <p>Has been edit!</p>
                 <?php else: ?>
                     <?php if (isset($errors) && is_array($errors)): ?>
                         <ul>
@@ -18,15 +18,15 @@
                     <?php endif; ?>
 
                     <div class="signup-form"><!--sign up form-->
-                        <h2>Редактирование данных</h2>
+                        <h2>Edit account</h2>
                         <form action="#" method="post">
-                            <p>Имя:</p>
-                            <input type="text" name="name" placeholder="Имя" value="<?php echo $name; ?>"/>
+                            <p>Name:</p>
+                            <input type="text" name="name" placeholder="Name" value="<?php echo $name; ?>"/>
                             
-                            <p>Пароль:</p>
-                            <input type="password" name="password" placeholder="Пароль" value="<?php echo $password; ?>"/>
+                            <p>Password:</p>
+                            <input type="password" name="password" placeholder="Password" value="<?php echo $password; ?>"/>
                             <br/>
-                            <input type="submit" name="submit" class="btn btn-default" value="Сохранить" />
+                            <input type="submit" name="submit" class="btn btn-default" value="Save" />
                         </form>
                     </div><!--/sign up form-->
                 

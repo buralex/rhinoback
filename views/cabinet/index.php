@@ -10,8 +10,7 @@
 			<?=	$user['role'] == 'admin' ? '<a href="/admin"><h1>Admin panel</h1></a>' : ''; ?>
 
             <ul>
-                <li><a href="/cabinet/edit">Редактировать данные</a></li>
-                <!--<li><a href="/cabinet/history">Список покупок</a></li>-->
+                <li><a href="/cabinet/edit">Edit account</a></li>
             </ul>
             
         </div>

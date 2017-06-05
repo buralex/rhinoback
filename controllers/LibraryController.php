@@ -9,7 +9,6 @@ class LibraryController
     {
 
 		if (isset($_POST['title'])) {
-			var_dump($_POST['title']);
 
 		}
 

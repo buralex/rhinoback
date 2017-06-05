@@ -215,9 +215,6 @@ class Book
         // Соединение с БД
         $db = Db::getConnection();
 
-		var_dump($authors);
-		var_dump($authors_ids);
-
 		$sql = 'DELETE FROM books_authors WHERE books_authors.book_id = :book_id';
 		$result = $db->prepare($sql);
 		$result->bindParam(':book_id', $id, PDO::PARAM_INT);
@@ -261,8 +258,6 @@ class Book
 		$result->execute();
 
 		$authors = explode(PHP_EOL, rtrim($options['authors'], PHP_EOL));
-		var_dump($authors_ids);
-		var_dump($authors);
 
 
 		$sql = "UPDATE authors SET author_name = :author_name WHERE author_id = :author_id";
@@ -330,7 +325,7 @@ class Book
 
         if ($result->execute([':book_title' => $options['book_title']])) {
             $last_book_id = $db->lastInsertId();
-			var_dump($last_book_id);
+
         }
 
 		$authors = explode(PHP_EOL, rtrim($options['authors'], PHP_EOL));

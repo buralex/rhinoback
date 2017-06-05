@@ -23,7 +23,6 @@ class Router
 
         // Получаем роуты из файла
         $this->routes = include_once "$routesPath";
-		//var_dump($this->routes);
     }
 
     /**
@@ -43,7 +42,7 @@ class Router
     {
         // Получаем строку запроса
         $uri = $this->getURI();
-		//var_dump(Db::getConnection());
+
 
         // Проверяем наличие такого запроса в массиве маршрутов (routes.php)
         foreach ($this->routes as $uriPattern => $path) {

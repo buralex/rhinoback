@@ -13,8 +13,6 @@ $result = $db->prepare($sql);
 
 $param = $_POST['author_name']; // search text - to param
 
-echo $param;
-
 if ($result->execute(["%$param%"])) {
 
 	$row  = $result->fetchAll(PDO::FETCH_ASSOC);

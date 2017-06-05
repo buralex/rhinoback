@@ -23,16 +23,16 @@
                     var jsonOptions = JSON.parse(this.responseText);
 
                     jsonOptions.forEach(function(item) {
-                        // Create a new <option> element.
-                        var option = document.createElement('a');
-                        option.style.cssText = 'display: block;';
+
+                        var link = document.createElement('a');
+                        link.style.cssText = 'display: block;';
                         // Set the value using the item in the JSON array.
-                        option.innerText = item.book_title;
-                        option.href = "/book/" + item.book_id;
-                        // Add the <option> element to the <datalist>.
-                        dataList.appendChild(option);
+                        link.innerText = item.book_title;
+                        link.href = "/book/" + item.book_id;
+
+                        dataList.appendChild(link);
                     });
-//                    console.log(this.responseText);
+
                 } else {
                     alert("Error! not sent!");
                 }
@@ -43,7 +43,45 @@
     }
 
 /*-----------------------------------------------------------------------------------------------*/
+    function showHintAuthor(str) {
+        if (str.length == 0) {
+            document.querySelector(".data-list-author").innerHTML = "";
+            return;
+        } else {
+            var xhttp = new XMLHttpRequest();
+            var formData = new FormData();
+            var dataList = document.querySelector('.data-list-author');
 
+            formData.append('author_name', str);
+
+            xhttp.open("POST", "../../AuthorHint.php", true);
+
+            xhttp.onload = function(oEvent) {
+                if (xhttp.status == 200) {
+
+                    while (dataList.firstChild) {
+                        dataList.removeChild(dataList.firstChild);
+                    }
+                    var jsonOptions = JSON.parse(this.responseText);
+
+                    jsonOptions.forEach(function(item) {
+
+                        var link = document.createElement('a');
+                        link.style.cssText = 'display: block;';
+                        // Set the value using the item in the JSON array.
+                        link.innerText = item.author_name;
+                        link.href = "/author/" + item.author_id;
+
+                        dataList.appendChild(link);
+                    });
+
+                } else {
+                    alert("Error! not sent!");
+                }
+            };
+            xhttp.send(formData);
+        }
+    }
 
     
 
@@ -74,46 +112,7 @@
 </section>
 
 <script>
-    function showHintAuthor(str) {
-        if (str.length == 0) {
-            document.querySelector(".data-list-author").innerHTML = "";
-            return;
-        } else {
-            var xhttp = new XMLHttpRequest();
-            var formData = new FormData();
-            var dataList = document.querySelector('.data-list-author');
-            var typedText = document.querySelector('input[name="author_name"]').value;
-            formData.append('author_name', typedText);
 
-            xhttp.open("POST", "../../AuthorHint.php", true);
-
-            xhttp.onload = function(oEvent) {
-                if (xhttp.status == 200) {
-
-                    while (dataList.firstChild) {
-                        dataList.removeChild(dataList.firstChild);
-                    }
-                    var resp = (this.responseText).substr(1);
-                    var jsonOptions = JSON.parse(resp);
-
-                    jsonOptions.forEach(function(item) {
-                        // Create a new <option> element.
-                        var option = document.createElement('a');
-                        option.style.cssText = 'display: block;';
-                        // Set the value using the item in the JSON array.
-                        option.innerText = item.author_name;
-                        option.href = "/author/" + item.author_id;
-                        // Add the <option> element to the <datalist>.
-                        dataList.appendChild(option);
-                    });
-                    console.log(jsonOptions);
-                } else {
-                    alert("Error! not sent!");
-                }
-            };
-            xhttp.send(formData);
-        }
-    }
 </script>
 
 

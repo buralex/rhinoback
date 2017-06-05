@@ -6,18 +6,17 @@
             
             <br/>
             
-            <h4>Добрый день, администратор!</h4>
+            <h4>Hi, admin!</h4>
             
             <br/>
             
-            <p>Вам доступны такие возможности:</p>
+            <p>You can do the next actions:</p>
             
             <br/>
             
             <ul>
                 <li><a href="/admin/book"><h1>Managing books</h1></a></li>
-<!--                <li><a href="/admin/category">Управление категориями</a></li>-->
-<!--                <li><a href="/admin/order">Управление заказами</a></li>-->
+
             </ul>
             
         </div>

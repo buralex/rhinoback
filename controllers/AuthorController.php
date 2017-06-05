@@ -15,7 +15,6 @@ class AuthorController
 
         // Получаем инфомрацию о товаре
         $author = Author::getAuthorById($authorId);
-        //var_dump($book);
 
         // Подключаем вид
         require_once ROOT . '/views/author/view.php';
