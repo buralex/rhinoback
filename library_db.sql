@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июн 05 2017 г., 12:35
+-- Время создания: Июн 05 2017 г., 23:00
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 7.1.2
 
@@ -47,7 +47,21 @@ INSERT INTO `authors` (`author_id`, `author_name`, `author_pseudonim`) VALUES
 (71, 'Toni Morrison', ''),
 (72, 'Franz Kafka', ''),
 (73, 'Jonathan Swift', ''),
-(74, 'Stendhal', '');
+(74, 'Stendhal', ''),
+(76, 'Carina Adams', ''),
+(77, 'Jeannine Colette', ''),
+(78, 'Leddy Harper', ''),
+(79, 'Nicole Hart', ''),
+(80, 'Lauren Runow', ''),
+(81, 'Stephie Walls', ''),
+(82, 'S.L. Ziegler', ''),
+(83, 'Holly Black', ''),
+(84, 'Justine Larbalestier', ''),
+(85, 'Alaya Dawn Johnson', ''),
+(86, 'Carrie Ryan', ''),
+(87, 'Scott Westerfeld', ''),
+(88, 'Meg Cabot', ''),
+(89, 'Garth Nix', '');
 
 -- --------------------------------------------------------
 
@@ -72,7 +86,9 @@ INSERT INTO `books` (`book_id`, `book_title`) VALUES
 (64, 'The Castle'),
 (65, 'Gulliver\'s Travels'),
 (66, 'War and Peace'),
-(67, 'The Red and the Black');
+(67, 'The Red and the Black'),
+(69, 'A Secret Affair'),
+(70, 'Zombies Vs. Unicorns');
 
 -- --------------------------------------------------------
 
@@ -100,7 +116,22 @@ INSERT INTO `books_authors` (`books_authors_id`, `book_id`, `author_id`) VALUES
 (87, 64, 72),
 (88, 65, 73),
 (89, 66, 57),
-(90, 67, 74);
+(90, 67, 74),
+(92, 69, 76),
+(93, 69, 77),
+(94, 69, 78),
+(95, 69, 79),
+(96, 69, 80),
+(97, 69, 81),
+(98, 69, 82),
+(99, 70, 83),
+(100, 70, 84),
+(101, 70, 85),
+(102, 70, 58),
+(103, 70, 86),
+(104, 70, 87),
+(105, 70, 88),
+(106, 70, 89);
 
 -- --------------------------------------------------------
 
@@ -124,7 +155,8 @@ INSERT INTO `user` (`id`, `name`, `email`, `password`, `role`) VALUES
 (3, 'Александр', 'alex@mail.com', '111111', ''),
 (5, 'Сергей', 'serg@mail.com', '111111', ''),
 (6, 'Alexandr', 'alexman_b@mail.ru', '111111', 'admin'),
-(7, 'Alexandr', 'new@gmail.com', '111111', 'admin');
+(7, 'Alexandr', 'new@gmail.com', '111111', 'admin'),
+(8, 'aaa', 'dd@aa.com', '111111', '');
 
 --
 -- Индексы сохранённых таблиц
@@ -164,22 +196,22 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT для таблицы `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 --
 -- AUTO_INCREMENT для таблицы `books`
 --
 ALTER TABLE `books`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 --
 -- AUTO_INCREMENT для таблицы `books_authors`
 --
 ALTER TABLE `books_authors`
-  MODIFY `books_authors_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `books_authors_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 --
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --

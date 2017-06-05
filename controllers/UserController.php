@@ -18,8 +18,7 @@ class UserController
 
         // Обработка формы
         if (isset($_POST['submit'])) {
-            // Если форма отправлена 
-            // Получаем данные из формы
+
             $name = $_POST['name'];
             $email = $_POST['email'];
             $password = $_POST['password'];
@@ -64,8 +63,7 @@ class UserController
         
         // Обработка формы
         if (isset($_POST['submit'])) {
-            // Если форма отправлена 
-            // Получаем данные из формы
+
             $email = $_POST['email'];
             $password = $_POST['password'];
 

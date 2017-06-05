@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Главная</title>
+        <title>Main</title>
         <link href="/template/css/bootstrap.min.css" rel="stylesheet">
         <link href="/template/css/font-awesome.min.css" rel="stylesheet">
         <link href="/template/css/main.css" rel="stylesheet">
@@ -30,7 +30,7 @@
                 <div class="header_top"><!--header_top-->
                     <div class="container">
                         <div class="row text-center">
-                                <h1>Test task for back-end</h1>
+                                <h1>Test task for back-end v 3.0</h1>
                         </div>
                     </div>
                 </div><!--/header_top-->

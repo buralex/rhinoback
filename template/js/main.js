@@ -1,49 +1,44 @@
-/*price range*/
+'use strict';
 
-$('#sl2').slider();
+/*--------------------------------------------------------
+        SHOW HINTS when searching
+--------------------------------------------------------*/
 
-var RGBChange = function () {
-    $('#RGB').css('background', 'rgb(' + r.getValue() + ',' + g.getValue() + ',' + b.getValue() + ')')
-};
+function showHint(params) {
+    var xhttp = new XMLHttpRequest();
+    var formData = new FormData();
+    var dataList = document.querySelector(params.dataList);
+    var input = document.querySelector(params.input);
 
-/*scroll to top*/
+    if (input.value.length == 0) {
+        dataList.innerHTML = "";
+        return;
+    } else {
+        formData.append(input.name, input.value);
 
-$(document).ready(function () {
-    $(function () {
-        $.scrollUp({
-            scrollName: 'scrollUp', // Element ID
-            scrollDistance: 300, // Distance from top/bottom before showing element (px)
-            scrollFrom: 'top', // 'top' or 'bottom'
-            scrollSpeed: 300, // Speed back to top (ms)
-            easingType: 'linear', // Scroll to top easing (see http://easings.net/)
-            animation: 'fade', // Fade, slide, none
-            animationSpeed: 200, // Animation in speed (ms)
-            scrollTrigger: false, // Set a custom triggering element. Can be an HTML string or jQuery object
-            //scrollTarget: false, // Set a custom target element for scrolling to the top
-            scrollText: '<i class="fa fa-angle-up"></i>', // Text for element, can contain HTML
-            scrollTitle: false, // Set a custom <a> title if required.
-            scrollImg: false, // Set true to use image
-            activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
-            zIndex: 2147483647 // Z-Index for the overlay
-        });
-    });
+        xhttp.open("POST", params.path, true);
 
-    $('#myCarousel').carousel({
-        interval: 10000
-    })
+        xhttp.onload = function(oEvent) {
+            if (xhttp.status == 200) {
 
-    $('.carousel .item').each(function () {
-        var next = $(this).next();
-        if (!next.length) {
-            next = $(this).siblings(':first');
-        }
-        next.children(':first-child').clone().appendTo($(this));
+                while (dataList.firstChild) {
+                    dataList.removeChild(dataList.firstChild);
+                }
 
-        if (next.next().length > 0) {
-            next.next().children(':first-child').clone().appendTo($(this));
-        }
-        else {
-            $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
-        }
-    });
-});
+                var jsonOptions = JSON.parse(this.responseText);
+                jsonOptions.forEach(function(item) {
+
+                    var link = document.createElement(params.tag);
+                    link.innerText = item[params.linkText];
+                    link.href = params.href + item[params.linkID];
+                    link.className = params.linkClass;
+
+                    dataList.appendChild(link);
+                });
+            } else {
+                alert("Error! not sent!");
+            }
+        };
+        xhttp.send(formData);
+    }
+}

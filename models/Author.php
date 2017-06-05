@@ -8,7 +8,6 @@ class Author
     {
 		$db = Db::getConnection();
 
-		// Текст запроса к БД
 		$sql = 'SELECT author_name FROM authors WHERE author_id = :author_id';
 
 		// Используется подготовленный запрос
@@ -24,6 +23,5 @@ class Author
 		// Получение и возврат результатов
 		return $result->fetch();
     }
-
 
 }

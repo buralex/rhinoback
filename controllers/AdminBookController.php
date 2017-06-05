@@ -4,16 +4,12 @@
 class AdminBookController extends AdminBase
 {
 
-
     public function actionIndex()
     {
-        // Проверка доступа
         self::checkAdmin();
 
-        // Получаем список товаров
         $booksList = Book::getBooksList();
 
-        // Подключаем вид
         require_once(ROOT . '/views/admin_book/index.php');
         return true;
     }
@@ -22,11 +18,9 @@ class AdminBookController extends AdminBase
 
     public function actionCreate()
     {
-        // Проверка доступа
         self::checkAdmin();
         $result = false;
 
-        // Обработка формы
         if (isset($_POST['submit'])) {
             // Если форма отправлена
             // Получаем данные из формы
@@ -49,17 +43,15 @@ class AdminBookController extends AdminBase
 		}
 
 
-        // Подключаем вид
+
         require_once ROOT . '/views/admin_book/create.php';
         return true;
     }
 
-    /**
-     * Action для страницы "Редактировать товар"
-     */
+
     public function actionUpdate($id)
     {
-        // Проверка доступа
+
         self::checkAdmin();
 
         $book = Book::getBookById($id);
@@ -75,17 +67,14 @@ class AdminBookController extends AdminBase
 
         // Обработка формы
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Получаем данные из формы редактирования. При необходимости можно валидировать значения
+
 			$options['book_title'] = $_POST['book_title'];
 			$options['authors'] = $_POST['authors'];
 
             // Сохраняем изменения
-            if (Book::updateBookById($id, $options, $authors_ids)) {
+			Book::updateBookById($id, $options, $authors_ids);
 
-            }
 
-            // Перенаправляем пользователя на страницу управлениями товарами
             header("Location: /admin/book");
         }
 
@@ -94,21 +83,19 @@ class AdminBookController extends AdminBase
         return true;
     }
 
-    /**
-     * Action для страницы "Удалить товар"
-     */
+
     public function actionDelete($id)
     {
-        // Проверка доступа
+
         self::checkAdmin();
 
         // Обработка формы
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Удаляем товар
+
+
 			$authors = Book::getAuthorsByBookId($id);
 			$authors_ids = [];
-			//$authors_from_new_line = '';
+
 
 			foreach ($authors as $author) {
 				$authors_ids[] = $author['author_id'];
@@ -116,11 +103,11 @@ class AdminBookController extends AdminBase
 
             Book::deleteBookById($id, $authors, $authors_ids);
 
-            // Перенаправляем пользователя на страницу управлениями товарами
+
             header("Location: /admin/book");
         }
 
-        // Подключаем вид
+
         require_once(ROOT . '/views/admin_book/delete.php');
         return true;
     }

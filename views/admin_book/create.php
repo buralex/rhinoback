@@ -31,12 +31,12 @@
                     <form action="#" method="post" enctype="multipart/form-data">
 
                         <h4>Book title</h4>
-                        <input type="text" name="book_title" placeholder="" value="">
+                        <input type="text" name="book_title" placeholder="" value="" required>
                         <br>
                         <h4>Authors</h4>
 
                         <h5>( fill in the authors beginning from a NEW LINE each !!! )</h5>
-                        <textarea name="authors" placeholder="" rows="10"></textarea>
+                        <textarea name="authors" placeholder="" rows="10" required></textarea >
                         <br/><br/>
                         <input type="submit" name="submit" class="btn btn-default" value="Save">
 

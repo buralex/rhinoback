@@ -14,14 +14,6 @@ class SiteController
         return true;
     }
 
-    /**
-     * Action для страницы 'Контакты'
-     */
-    public function actionContact()
-    {
-
-    }
-
 
 	public function actionReverse()
 	{

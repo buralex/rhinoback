@@ -26,7 +26,7 @@
         }
     }
 
-    echo "<h3>2. Getting a domain</h3>";
+    echo "<h3>2. Extract a domain</h3>";
 
     echo "<b>" . Url::domain($url) . "</b>" . " &nbsp; (from &nbsp; $url)" . "<br><br>";
     echo "<b>" . Url::domain($url1) . "</b>" . " &nbsp; (from &nbsp; $url1)" . "<br><br>";

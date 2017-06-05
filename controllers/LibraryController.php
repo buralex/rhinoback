@@ -2,27 +2,22 @@
 
 class LibraryController
 {
-    /**
-     * Action for library
-     */
+
     public function actionIndex()
     {
-
-		if (isset($_POST['title'])) {
-
-		}
 
         // Подключаем вид
 		require_once ROOT . '/views/site/library.php';
         return true;
     }
 
-    /**
-     * Action для страницы 'Контакты'
-     */
-    public function actionContact()
-    {
 
+    public function actionFiltered()
+    {
+		$books = Book::getFilteredBooks(2);
+
+		require_once ROOT . '/views/site/filtered.php';
+		return true;
     }
 
 }

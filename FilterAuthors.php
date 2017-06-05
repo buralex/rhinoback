@@ -8,6 +8,7 @@ $db = Db::getConnection();
 
 $hint = "";
 
+//selects all of the authors by the book title
 $sql = ('SELECT a.author_id, author_name '
 	.'FROM books b LEFT JOIN books_authors ba '
 	.'ON (b.book_id = ba.book_id) '
