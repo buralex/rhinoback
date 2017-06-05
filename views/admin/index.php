@@ -15,7 +15,7 @@
             <br/>
             
             <ul>
-                <li><a href="/admin/book">Managing books</a></li>
+                <li><a href="/admin/book"><h1>Managing books</h1></a></li>
 <!--                <li><a href="/admin/category">Управление категориями</a></li>-->
 <!--                <li><a href="/admin/order">Управление заказами</a></li>-->
             </ul>

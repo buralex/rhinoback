@@ -1,7 +1,7 @@
 <?php include ROOT . '/views/layouts/header.php'; ?>
 
 <script>
-    function showBooks(str) {
+    function showAuthors(str) {
         if (str.length == 0) {
             document.querySelector(".data-list").innerHTML = "";
             return;
@@ -9,10 +9,10 @@
             var xhttp = new XMLHttpRequest();
             var formData = new FormData();
             var dataList = document.querySelector('.data-list');
-            var typedText = document.querySelector('input[name="author_name"]').value;
-            formData.append('author_name', typedText);
+            var typedText = document.querySelector('input[name="book_title"]').value;
+            formData.append('book_title', typedText);
 
-            xhttp.open("POST", "../../ShowBooks.php", true);
+            xhttp.open("POST", "../../ShowAuthors.php", true);
 
             xhttp.onload = function(oEvent) {
                 if (xhttp.status == 200) {
@@ -27,8 +27,8 @@
                         var option = document.createElement('a');
                         option.style.cssText = 'display: block;';
                         // Set the value using the item in the JSON array.
-                        option.innerText = item.book_title;
-                        option.href = "/book/" + item.book_id;
+                        option.innerText = item.author_name;
+                        option.href = "/author/" + item.author_id;
                         // Add the <option> element to the <datalist>.
                         dataList.appendChild(option);
                     });
@@ -42,7 +42,6 @@
         }
     }
 </script>
-
 <section>
     <div class="container">
         <div class="row">
@@ -52,17 +51,19 @@
 
                     <div class="col-sm-6">
                         <br/>
-                        <h5>Title of the book</h5>
-                        <h1><?php echo $book['book_title']; ?></h1>
+                        <h5>Author name</h5>
+                        <h1><?php echo $author['author_name']; ?></h1>
                     </div>
 
                     <div class="col-sm-6 text-center">
-                        <h4>Input the name of the AUTHOR</h4>
-                        <input type="text" name="author_name" onkeyup="showBooks(this.value)" autocomplete="off">
+                        <h4>Input the name of the BOOK</h4>
+                        <input type="text" name="book_title" onkeyup="showAuthors(this.value)" autocomplete="off">
                         <br><br>
                         <div class="data-list"></div>
                     </div>
+
                 </div><!--/product-details-->
+
             </div>
         </div>
     </div>

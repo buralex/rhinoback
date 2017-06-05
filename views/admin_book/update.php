@@ -10,12 +10,12 @@
                 <ol class="breadcrumb">
                     <li><a href="/admin">Admin panel</a></li>
                     <li><a href="/admin/book">Managing books</a></li>
-                    <li class="active">Update book</li>
+                    <li class="active">Edit a book</li>
                 </ol>
             </div>
 
 
-            <h4>Updade book #<?php echo $id; ?></h4>
+            <h4>Edit a book #<?php echo $id; ?></h4>
 
             <br/>
 

@@ -30,7 +30,7 @@
                 <div class="header_top"><!--header_top-->
                     <div class="container">
                         <div class="row text-center">
-                                <h1>Тестовое задание для back-end-a</h1>
+                                <h1>Test task for back-end</h1>
                         </div>
                     </div>
                 </div><!--/header_top-->
@@ -73,9 +73,9 @@
                                 </div>
                                 <div class="mainmenu pull-left">
                                     <ul class="nav navbar-nav collapse navbar-collapse">
-                                        <li><a href="/reverse/">1. РЕВЕРС МАССИВА</a></li>
-                                        <li><a href="/extract/">2. ИЗВЛЕЧЕНИЕ ДОМЕНА </a></li>
-                                        <li><a href="/library/">3. БИБЛИОТЕКА</a></li>
+                                        <li><a href="/reverse/">1. REVERS ARRAY</a></li>
+                                        <li><a href="/extract/">2. EXTRACT DOMAIN</a></li>
+                                        <li><a href="/library/">3. LIBRARY</a></li>
                                     </ul>
                                 </div>
                             </div>

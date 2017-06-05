@@ -1,17 +1,9 @@
 <?php
 
-/**
- * Контроллер CartController
- * Корзина
- */
+
 class CartController
 {
 
-    /**
-     * Action для добавления товара в корзину синхронным запросом<br/>
-     * (для примера, не используется)
-     * @param integer $id <p>id товара</p>
-     */
     public function actionAdd($id)
     {
         // Добавляем товар в корзину

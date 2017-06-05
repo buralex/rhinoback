@@ -4,10 +4,10 @@
     <div class="container">
         <div class="row">
 
-            <h3>Кабинет пользователя</h3>
+            <h3>User cabinet</h3>
             
-            <h4>Привет, <?php echo $user['name'];?>!</h4>
-			<?=	$user['role'] == 'admin' ? '<a href="/admin">Admin panel</a>' : ''; ?>
+            <h4>Hi, <?php echo $user['name'];?>!</h4>
+			<?=	$user['role'] == 'admin' ? '<a href="/admin"><h1>Admin panel</h1></a>' : ''; ?>
 
             <ul>
                 <li><a href="/cabinet/edit">Редактировать данные</a></li>

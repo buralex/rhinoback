@@ -8,9 +8,9 @@
 
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
-                    <li><a href="/admin">Админпанель</a></li>
-                    <li><a href="/admin/product">Управление товарами</a></li>
-                    <li class="active">Редактировать товар</li>
+                    <li><a href="/admin">Admin panel</a></li>
+                    <li><a href="/admin/product">Managing books</a></li>
+                    <li class="active">Edit</li>
                 </ol>
             </div>
 

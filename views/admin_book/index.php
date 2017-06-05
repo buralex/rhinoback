@@ -8,14 +8,14 @@
 
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
-                    <li><a href="/admin">Админпанель</a></li>
-                    <li class="active">Управление товарами</li>
+                    <li><a href="/admin">Admin panel</a></li>
+                    <li class="active">Managing books</li>
                 </ol>
             </div>
 
-            <a href="/admin/book/create" class="btn btn-default back"><i class="fa fa-plus"></i> Добавить товар</a>
+            <a href="/admin/book/create" class="btn btn-default back"><i class="fa fa-plus"></i>Add a new book</a>
             
-            <h4>Список товаров</h4>
+            <h4>Book list</h4>
 
             <br/>
 
@@ -24,8 +24,8 @@
                     <th>Book ID</th>
                     <th>Book title</th>
                     <th>Author name</th>
-                    <th></th>
-                    <th></th>
+                    <th>Edit book</th>
+                    <th>Delete book</th>
                 </tr>
                 <?php foreach ($booksList as $book): ?>
                     <tr>

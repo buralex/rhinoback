@@ -12,6 +12,7 @@ return array(
 
 	// Book:
 	'book/([0-9]+)' => 'book/view/$1', // BookController -> actionView($1)
+	'author/([0-9]+)' => 'author/view/$1', // BookController -> actionView($1)
 
 	// Managing library:
 	'admin/book/create' => 'adminBook/create', // AdminBookController -> actionCreate

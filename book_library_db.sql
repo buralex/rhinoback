@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июн 02 2017 г., 15:04
+-- Время создания: Июн 05 2017 г., 05:19
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 7.1.2
 
@@ -30,10 +30,23 @@ USE `book_library`;
 
 CREATE TABLE `authors` (
   `author_id` int(11) NOT NULL,
-  `author_firstname` text NOT NULL,
   `author_name` text NOT NULL,
   `author_pseudonim` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `authors`
+--
+
+INSERT INTO `authors` (`author_id`, `author_name`, `author_pseudonim`) VALUES
+(57, 'Leo Tolstoy', ''),
+(58, 'Maureen Johnson', ''),
+(59, 'John Green', ''),
+(60, 'Lauren Myracle', ''),
+(70, 'Mark Twain', ''),
+(71, 'Toni Morrison', ''),
+(72, 'Franz Kafka', ''),
+(73, 'Jonathan Swift', '');
 
 -- --------------------------------------------------------
 
@@ -46,6 +59,19 @@ CREATE TABLE `books` (
   `book_title` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `books`
+--
+
+INSERT INTO `books` (`book_id`, `book_title`) VALUES
+(57, 'Anna Karenina'),
+(58, 'Let it Snow'),
+(62, 'The Adventures of Huckleberry Finn'),
+(63, 'Beloved'),
+(64, 'The Castle'),
+(65, 'Gulliver\'s Travels'),
+(66, 'War and Peace');
+
 -- --------------------------------------------------------
 
 --
@@ -57,6 +83,21 @@ CREATE TABLE `books_authors` (
   `book_id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `books_authors`
+--
+
+INSERT INTO `books_authors` (`books_authors_id`, `book_id`, `author_id`) VALUES
+(72, 57, 57),
+(73, 58, 58),
+(74, 58, 59),
+(75, 58, 60),
+(85, 62, 70),
+(86, 63, 71),
+(87, 64, 72),
+(88, 65, 73),
+(89, 66, 57);
 
 -- --------------------------------------------------------
 
@@ -78,9 +119,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `role`) VALUES
 (3, 'Александр', 'alex@mail.com', '111111', ''),
-(4, 'Виктор Зинченко', 'zinchenko.us@gmail.com', '222222', 'admin'),
 (5, 'Сергей', 'serg@mail.com', '111111', ''),
-(6, 'Alexandr', 'alexman_b@mail.ru', '111111', 'admin');
+(6, 'Alexandr', 'alexman_b@mail.ru', '111111', 'admin'),
+(7, 'Alexandr', 'new@gmail.com', '111111', 'admin');
 
 --
 -- Индексы сохранённых таблиц
@@ -120,22 +161,22 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT для таблицы `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 --
 -- AUTO_INCREMENT для таблицы `books`
 --
 ALTER TABLE `books`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT для таблицы `books_authors`
 --
 ALTER TABLE `books_authors`
-  MODIFY `books_authors_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `books_authors_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 --
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
@@ -144,8 +185,8 @@ ALTER TABLE `user`
 -- Ограничения внешнего ключа таблицы `books_authors`
 --
 ALTER TABLE `books_authors`
-  ADD CONSTRAINT `books_authors_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `authors` (`author_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `books_authors_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `books_authors_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `authors` (`author_id`),
+  ADD CONSTRAINT `books_authors_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
