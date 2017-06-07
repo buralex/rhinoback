@@ -9,9 +9,10 @@ return array(
     'cabinet/edit' => 'cabinet/edit',
     'cabinet' => 'cabinet/index',
 
+
 	//library
-	'library/filtered' => 'library/filtered', // LibraryController -> actionFiltered
 	'library' => 'library/index', // LibraryController -> actionIndex
+	'library/filtered' => 'library/filtered', // LibraryController -> actionFiltered
 
 
 	// Book:

@@ -2,7 +2,6 @@
 
 <section>
     <div class="container">
-
         <div class="row text-center">
             <a href="/library/filtered" >
                 <div class="link-to-filter">

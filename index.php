@@ -10,12 +10,9 @@ session_start();
 
 // Подключение файлов системы
 define('ROOT', str_replace("\\","/", __DIR__));
-require_once(ROOT.'/components/Autoload.php');
+require_once ROOT . '/components/Autoload.php';
 
-//require_once(ROOT.'/components/test.php');
-//require_once(ROOT.'/components/LibrarySearch.php');
 
-//require_once(ROOT.'/components/LibrarySearch.php');
 
 
 // Вызов Router
