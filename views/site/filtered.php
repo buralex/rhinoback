@@ -2,7 +2,6 @@
 
 <section>
     <div class="container">
-
         <div class="row text-center">
 
         <h1>Filtered books</h1>

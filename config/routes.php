@@ -11,8 +11,9 @@ return array(
 
 
 	//library
-	'library' => 'library/index', // LibraryController -> actionIndex
 	'library/filtered' => 'library/filtered', // LibraryController -> actionFiltered
+	'library' => 'library/index', // LibraryController -> actionIndex
+
 
 
 	// Book:

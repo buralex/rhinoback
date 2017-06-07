@@ -73,9 +73,9 @@
                                 </div>
                                 <div class="mainmenu pull-left">
                                     <ul class="nav navbar-nav collapse navbar-collapse">
-                                        <li><a href="/reverse/" class="<?php  ?>">1. REVERS ARRAY</a></li>
-                                        <li><a href="/extract/" class="<?php  ?>">2. EXTRACT DOMAIN</a></li>
-                                        <li><a href="/library/" class="<?php  ?>">3. LIBRARY</a></li>
+                                        <li><a href="/reverse/" class="">1. REVERS ARRAY</a></li>
+                                        <li><a href="/extract/" class="">2. EXTRACT DOMAIN</a></li>
+                                        <li><a href="/library/" class="">3. LIBRARY</a></li>
                                     </ul>
                                 </div>
                             </div>
