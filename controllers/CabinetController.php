@@ -1,71 +1,86 @@
 <?php
 
 /**
- * Контроллер CabinetController
- * Кабинет пользователя
+ * CabinetController
+ * User cabinet
  */
 class CabinetController
 {
 
     /**
-     * Action для страницы "Кабинет пользователя"
+     *
      */
     public function actionIndex()
     {
-        // Получаем идентификатор пользователя из сессии
+        // getting user id from session
         $userId = User::checkLogged();
 
-        // Получаем информацию о пользователе из БД
+        // getting user info from DB
         $user = User::getUserById($userId);
-        // Подключаем вид
-        require_once(ROOT . '/views/cabinet/index.php');
+
+		$view = new View();
+		$view->user = $user;
+
+		$view->display('layouts/header.php');
+		$view->display('cabinet/index.php');
+		$view->display('layouts/footer.php');
+
         return true;
     }
 
     /**
-     * Action для страницы "Редактирование данных пользователя"
+     * Edit user info
      */
     public function actionEdit()
     {
-        // Получаем идентификатор пользователя из сессии
+		$view = new View();
+
+		// getting user id from session
         $userId = User::checkLogged();
 
-        // Получаем информацию о пользователе из БД
+		// getting user info from DB
         $user = User::getUserById($userId);
 
-        // Заполняем переменные для полей формы
+        // filling in the fields of form
         $name = $user['name'];
         $password = $user['password'];
 
-        // Флаг результата
+        // result flag
         $result = false;
 
-        // Обработка формы
+
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Получаем данные из формы редактирования
+
             $name = $_POST['name'];
             $password = $_POST['password'];
 
-            // Флаг ошибок
+            // error flag
             $errors = false;
 
-            // Валидируем значения
+            // validation
             if (!User::checkName($name)) {
-                $errors[] = 'Имя не должно быть короче 2-х символов';
+                $errors[] = 'The name can not be shorter than 2 characters';
+				$view->errors = $errors;
             }
             if (!User::checkPassword($password)) {
-                $errors[] = 'Пароль не должен быть короче 6-ти символов';
+                $errors[] = 'Password must not be shorter than 6 characters';
+				$view->errors = $errors;
             }
 
             if ($errors == false) {
-                // Если ошибок нет, сохраняет изменения профиля
+                // save changes
                 $result = User::edit($userId, $name, $password);
             }
         }
 
-        // Подключаем вид
-        require_once(ROOT . '/views/cabinet/edit.php');
+		$view->result = $result;
+		$view->name = $name;
+		$view->password = $password;
+
+		$view->display('layouts/header.php');
+		$view->display('cabinet/edit.php');
+		$view->display('layouts/footer.php');
+
         return true;
     }
 

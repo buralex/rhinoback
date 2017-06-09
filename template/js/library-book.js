@@ -5,7 +5,7 @@
 /*-----------------------------------------------------------
     Filtering books by author
  ------------------------------------------------------------*/
-    document.querySelector('input[name="author_name"]').addEventListener("change", function(e) {
+    document.querySelector('#authorBooks').addEventListener("submit", function(e) {
         var params = {
             dataList: '.data-list',
             input: 'input[name="author_name"]',
@@ -17,6 +17,7 @@
             linkID: 'book_id'
         };
         showHint(params); // function in main.js
+        e.preventDefault();
     });
 
 })();

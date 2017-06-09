@@ -4,15 +4,20 @@
 class AdminController extends AdminBase
 {
     /**
-     * Action для стартовой страницы "Панель администратора"
+     * Action for index page admin panel
      */
     public function actionIndex()
     {
+		$view = new View();
 
         self::checkAdmin();
 
-        // Подключаем вид
-        require_once ROOT . '/views/admin/index.php';
+		$view->display('layouts/header_admin.php');
+
+		$view->display('admin/index.php');
+
+		$view->display('layouts/footer_admin.php');
+
         return true;
     }
 

@@ -26,12 +26,11 @@
     <body>
         <div class="page-wrapper">
 
-
             <header id="header"><!--header-->
                 <div class="header_top"><!--header_top-->
                     <div class="container">
                         <div class="row text-center">
-                                <h1>Test task for back-end v 3.0</h1>
+                                <h1>Test task for back-end v 4.0</h1>
                         </div>
                     </div>
                 </div><!--/header_top-->

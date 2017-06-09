@@ -34,8 +34,13 @@ class SiteController
 
 	public function actionExtract($action_name = 'extract')
 	{
+		$view = new View();
+		$view->display('layouts/header.php');
 
-		require_once ROOT . '/views/site/extract.php';
+		$view->display('site/extract.php');
+
+		$view->display('layouts/footer.php');
+
 		return true;
 	}
 

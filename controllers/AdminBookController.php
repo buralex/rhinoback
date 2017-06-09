@@ -13,31 +13,35 @@ class AdminBookController extends AdminBase
 		$view = new View();
 		$view->bookList = $bookList;
 
+		$view->display('layouts/header_admin.php');
+
 		$view->display('admin_book/index.php');
+		$view->display('layouts/footer_admin.php');
 
         return true;
     }
 
 
-
+	/**
+	 * Creates a new book
+	 */
     public function actionCreate()
     {
+		$view = new View();
+
         self::checkAdmin();
         $result = false;
 
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Получаем данные из формы
+
             $options['book_title'] = $_POST['book_title'];
             $options['authors'] = $_POST['authors'];
 
-            // Флаг ошибок в форме
             $errors = false;
-
 
 			if ($id_exist = Book::checkBookExists($options['book_title'])) {
 				$errors[] = 'The book is already in the table, id= '.$id_exist;
-
+				$view->errors = $errors;
 			}
 
 			if ($errors == false) {
@@ -46,15 +50,21 @@ class AdminBookController extends AdminBase
 			}
 		}
 
+		$view->display('layouts/header_admin.php');
 
+		$view->display('admin_book/create.php');
 
-        require_once ROOT . '/views/admin_book/create.php';
+		$view->display('layouts/footer_admin.php');
+
         return true;
     }
 
-
+	/**
+	 * Updates a book
+	 */
     public function actionUpdate($id)
     {
+		$view = new View();
 
         self::checkAdmin();
 
@@ -69,37 +79,44 @@ class AdminBookController extends AdminBase
 			$authors_ids[] = $author['author_id'];
 		}
 
-        // Обработка формы
         if (isset($_POST['submit'])) {
 
 			$options['book_title'] = $_POST['book_title'];
 			$options['authors'] = $_POST['authors'];
 
-            // Сохраняем изменения
+            // save changes
 			Book::updateBookById($id, $options, $authors_ids);
-
 
             header("Location: /admin/book");
         }
 
-        // Подключаем вид
-        require_once(ROOT . '/views/admin_book/update.php');
+		$view->id = $id;
+		$view->book = $book;
+		$view->authors_value = $authors_value;
+
+		$view->display('layouts/header_admin.php');
+
+		$view->display('admin_book/update.php');
+
+		$view->display('layouts/footer_admin.php');
+
         return true;
     }
 
-
+	/**
+	 * Deletes a book
+	 */
     public function actionDelete($id)
     {
+		$view = new View();
 
         self::checkAdmin();
+		$book = Book::getBookById($id);
 
-        // Обработка формы
         if (isset($_POST['submit'])) {
-
 
 			$authors = Author::getAuthorsByBookId($id);
 			$authors_ids = [];
-
 
 			foreach ($authors as $author) {
 				$authors_ids[] = $author['author_id'];
@@ -107,12 +124,17 @@ class AdminBookController extends AdminBase
 
             Book::deleteBookById($id, $authors, $authors_ids);
 
-
             header("Location: /admin/book");
         }
 
+		$view->book = $book;
 
-        require_once(ROOT . '/views/admin_book/delete.php');
+		$view->display('layouts/header_admin.php');
+
+		$view->display('admin_book/delete.php');
+
+		$view->display('layouts/footer_admin.php');
+
         return true;
     }
 

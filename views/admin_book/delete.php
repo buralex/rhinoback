@@ -14,8 +14,7 @@
             </div>
 
 
-            <h4>Delete this book #<?php echo $id; ?></h4>
-
+            <h4>Delete this book #<?php echo $book['book_title']; ?></h4>
 
             <p>Are you sure about that?</p>
 

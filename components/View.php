@@ -23,6 +23,7 @@ class View
 		foreach ($this->data as $key => $val) {
 			$$key = $val;  // creates variable named like $key, and assigns $val to it
 		}
+
 		ob_start();
 		include_once ROOT . "/views/" . $template;
 		$content = ob_get_contents();

@@ -8,29 +8,33 @@ class LibraryController
 	 */
     public function actionIndex()
     {
+		$view = new View();
+
     	$books = Book::getBookList();
     	$authors = Author::getAuthorList();
+
+		$view->books = $books;
+		$view->authors = $authors;
 
 		if (isset($_POST['submit'])) {
 
 			// go to book page
 			if (isset($_POST['book_title'])) {
 				$book = Book::getBookByTitle($_POST['book_title']);
-				header("Location: /library/book/" . $book[book_id]);
+				header("Location: /library/book/" . $book['book_id']);
 			}
 
 			// go to author page
 			if (isset($_POST['author_name'])) {
 				$author = Author::getAuthorByName($_POST['author_name']);
-				header("Location: /library/author/" . $author[author_id]);
+				header("Location: /library/author/" . $author['author_id']);
 			}
 		}
 
-		$view = new View();
-		$view->books = $books;
-		$view->authors = $authors;
 
+		$view->display('layouts/header.php');
 		$view->display('library/index.php');
+		$view->display('layouts/footer.php');
 
         return true;
     }
@@ -40,12 +44,15 @@ class LibraryController
 	 */
     public function actionFiltered()
     {
+		$view = new View();
+		$view->display('layouts/header.php');
+
 		$books = Book::getFilteredBooks(2);
 
-		$view = new View();
 		$view->books = $books;
 
 		$view->display('library/filtered.php');
+		$view->display('layouts/footer.php');
 
 		return true;
     }
@@ -80,6 +87,9 @@ class LibraryController
 	 */
 	public function actionShowBook($book_id)
 	{
+		$view = new View();
+		$view->display('layouts/header.php');
+
 		$book = Book::getBookById($book_id);
 		$authors = Author::getAuthorsByBookId($book_id);
 
@@ -88,12 +98,12 @@ class LibraryController
 			$authors_str[] = $author['author_name'];
 		}
 
-		$view = new View();
 		$view->book = $book;
 		$view->authors = $authors;
 		$view->authors_str = $authors_str;
 
 		$view->display('book/view.php');
+		$view->display('layouts/footer.php');
 
 		return true;
 	}
@@ -103,6 +113,9 @@ class LibraryController
 	 */
 	public function actionShowAuthor($author_id)
 	{
+		$view = new View();
+		$view->display('layouts/header.php');
+
 		$author = Author::getAuthorById($author_id);
 		$books = Book::getBooksByAuthorId($author_id);
 		$books_str = [];
@@ -111,12 +124,12 @@ class LibraryController
 		}
 
 
-		$view = new View();
 		$view->books = $books;
 		$view->author = $author;
 		$view->books_str = $books_str;
 
 		$view->display('author/view.php');
+		$view->display('layouts/footer.php');
 
 		return true;
 	}

@@ -15,8 +15,9 @@
 
                     <div class="col-sm-6 text-center">
                         <h4>Input BOOK title</h4>
-                        <form onsubmit="return false;" class="pure-form" method="post">
+                        <form id="bookAuthors" class="pure-form" method="post">
                             <input id="bookSearch" autofocus type="text" name="book_title" placeholder=" author name ..." autocomplete="off">
+                            <input type="submit" name="submit" class="btn btn-default" value="GO" />
                         </form>
                         <br><br>
                         <p>authors of the book:</p>

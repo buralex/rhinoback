@@ -1,115 +1,134 @@
 <?php
 
 /**
- * Контроллер UserController
+ *
  */
 class UserController
 {
     /**
-     * Action для страницы "Регистрация"
+     *
      */
     public function actionRegister()
     {
-        // Переменные для формы
+		$view = new View();
+		$view->display('layouts/header.php');
+
         $name = false;
         $email = false;
         $password = false;
         $result = false;
 
-        // Обработка формы
         if (isset($_POST['submit'])) {
 
             $name = $_POST['name'];
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Флаг ошибок
+            // error flag
             $errors = false;
 
-            // Валидация полей
+            // field validation
             if (!User::checkName($name)) {
-                $errors[] = 'Имя не должно быть короче 2-х символов';
+                $errors[] = 'The name can not be shorter than 2 characters';
+				$view->errors = $errors;
             }
             if (!User::checkEmail($email)) {
-                $errors[] = 'Неправильный email';
+                $errors[] = 'Wrong email';
+				$view->errors = $errors;
             }
             if (!User::checkPassword($password)) {
-                $errors[] = 'Пароль не должен быть короче 6-ти символов';
+                $errors[] = 'Password must not be shorter than 6 characters';
+				$view->errors = $errors;
             }
             if (User::checkEmailExists($email)) {
-                $errors[] = 'Такой email уже используется';
+                $errors[] = 'This email is already in use';
+				$view->errors = $errors;
             }
             
             if ($errors == false) {
-                // Если ошибок нет
-                // Регистрируем пользователя
+                // registration new user
                 $result = User::register($name, $email, $password);
             }
         }
 
-        // Подключаем вид
-        require_once(ROOT . '/views/user/register.php');
+		$view->name = $name;
+		$view->email = $email;
+		$view->password = $password;
+		$view->result = $result;
+
+		$view->display('user/register.php');
+
+		$view->display('layouts/footer.php');
+
         return true;
     }
     
     /**
-     * Action для страницы "Вход на сайт"
+     *
      */
     public function actionLogin()
     {
-        // Переменные для формы
+		$view = new View();
+
         $email = false;
         $password = false;
         
-        // Обработка формы
         if (isset($_POST['submit'])) {
 
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Флаг ошибок
+            // error flag
             $errors = false;
 
-            // Валидация полей
+            // fields validation
             if (!User::checkEmail($email)) {
-                $errors[] = 'Неправильный email';
+                $errors[] = 'Wrong email';
+                $view->errors = $errors;
             }
             if (!User::checkPassword($password)) {
-                $errors[] = 'Пароль не должен быть короче 6-ти символов';
+                $errors[] = 'Password must not be shorter than 6 characters';
+                $view->errors = $errors;
             }
 
-            // Проверяем существует ли пользователь
+            // checking user existence
             $userId = User::checkUserData($email, $password);
 
             if ($userId == false) {
-                // Если данные неправильные - показываем ошибку
-                $errors[] = 'Неправильные данные для входа на сайт';
+                $errors[] = 'Incorrect login data';
+				$view->errors = $errors;
             } else {
-                // Если данные правильные, запоминаем пользователя (сессия)
+                // Remember user in session
                 User::auth($userId);
 
-                // Перенаправляем пользователя в закрытую часть - кабинет 
+                // Redirect to main cabinet
                 header("Location: /cabinet");
             }
         }
 
-        // Подключаем вид
-        require_once(ROOT . '/views/user/login.php');
+		$view->display('layouts/header.php');
+
+		$view->email = $email;
+		$view->password = $password;
+
+		$view->display('user/login.php');
+
+		$view->display('layouts/footer.php');
+
         return true;
     }
 
     /**
-     * Удаляем данные о пользователе из сессии
+     * Delete user information from session
      */
     public function actionLogout()
     {
-        // Стартуем сессию
         session_start();
         
-        // Удаляем информацию о пользователе из сессии
+        // Delete user information from session
         unset($_SESSION["user"]);
         
-        // Перенаправляем пользователя на главную страницу
+        // Redirect to main page
         header("Location: /");
     }
 

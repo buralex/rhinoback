@@ -79,7 +79,7 @@ function showHint(params) {
 
         xhttp.onload = function(oEvent) {
             if (xhttp.status == 200) {
-                console.log(this.responseText);
+
                 while (dataList.firstChild) {
                     dataList.removeChild(dataList.firstChild);
                 }

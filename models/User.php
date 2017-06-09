@@ -1,28 +1,27 @@
 <?php
 
 /**
- * Класс User - модель для работы с пользователями
+ * Model for working with users
  */
 class User
 {
 
     /**
-     * Регистрация пользователя 
-     * @param string $name <p>Имя</p>
-     * @param string $email <p>E-mail</p>
-     * @param string $password <p>Пароль</p>
-     * @return boolean <p>Результат выполнения метода</p>
+     * Registration of user
+     * @param string $name <p>Nname</p>
+     * @param string $email <p>Email</p>
+     * @param string $password <p>Password</p>
+     * @return boolean <p>Execution result</p>
      */
     public static function register($name, $email, $password)
     {
-        // Соединение с БД
+
         $db = Db::getConnection();
 
-        // Текст запроса к БД
         $sql = 'INSERT INTO user (name, email, password) '
                 . 'VALUES (:name, :email, :password)';
 
-        // Получение и возврат результатов. Используется подготовленный запрос
+
         $result = $db->prepare($sql);
         $result->bindParam(':name', $name, PDO::PARAM_STR);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
@@ -31,23 +30,23 @@ class User
     }
 
     /**
-     * Редактирование данных пользователя
-     * @param integer $id <p>id пользователя</p>
-     * @param string $name <p>Имя</p>
-     * @param string $password <p>Пароль</p>
-     * @return boolean <p>Результат выполнения метода</p>
+     * Edit user info
+     * @param integer $id <p>user id</p>
+     * @param string $name <p>Name</p>
+     * @param string $password <p>Password</p>
+     * @return boolean <p>Execution result</p>
      */
     public static function edit($id, $name, $password)
     {
-        // Соединение с БД
+
         $db = Db::getConnection();
 
-        // Текст запроса к БД
+
         $sql = "UPDATE user 
             SET name = :name, password = :password 
             WHERE id = :id";
 
-        // Получение и возврат результатов. Используется подготовленный запрос
+
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->bindParam(':name', $name, PDO::PARAM_STR);
@@ -56,53 +55,49 @@ class User
     }
 
     /**
-     * Проверяем существует ли пользователь с заданными $email и $password
+     * Check existence of $email and $password
      * @param string $email <p>E-mail</p>
-     * @param string $password <p>Пароль</p>
+     * @param string $password <p>Password</p>
      * @return mixed : integer user id or false
      */
     public static function checkUserData($email, $password)
     {
-        // Соединение с БД
+
         $db = Db::getConnection();
 
-        // Текст запроса к БД
         $sql = 'SELECT * FROM user WHERE email = :email AND password = :password';
 
-        // Получение результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':email', $email, PDO::PARAM_INT);
         $result->bindParam(':password', $password, PDO::PARAM_INT);
         $result->execute();
 
-        // Обращаемся к записи
         $user = $result->fetch();
 
         if ($user) {
-            // Если запись существует, возвращаем id пользователя
+            // if user exists
             return $user['id'];
         }
         return false;
     }
 
     /**
-     * Запоминаем пользователя
-     * @param integer $userId <p>id пользователя</p>
+     * Remember user in session
+     * @param integer $userId <p>user id</p>
      */
     public static function auth($userId)
     {
-        // Записываем идентификатор пользователя в сессию
         $_SESSION['user'] = $userId;
     }
 
     /**
-     * Возвращает идентификатор пользователя, если он авторизирован.<br/>
-     * Иначе перенаправляет на страницу входа
-     * @return string <p>Идентификатор пользователя</p>
+     * Returns user id <br/>
+     * Or redirect to login page
+     * @return string <p>User id</p>
      */
     public static function checkLogged()
     {
-        // Если сессия есть, вернем идентификатор пользователя
+        // if user logged return his id
         if (isset($_SESSION['user'])) {
             return $_SESSION['user'];
         }
@@ -111,8 +106,8 @@ class User
     }
 
     /**
-     * Проверяет является ли пользователь гостем
-     * @return boolean <p>Результат выполнения метода</p>
+     * Checks whether the user is a guest
+     * @return boolean <p>Execution result</p>
      */
     public static function isGuest()
     {
@@ -123,9 +118,9 @@ class User
     }
 
     /**
-     * Проверяет имя: не меньше, чем 2 символа
-     * @param string $name <p>Имя</p>
-     * @return boolean <p>Результат выполнения метода</p>
+     * Checks the name: no less than 2 characters
+     * @param string $name <p>Name</p>
+     * @return boolean <p>Execution result</p>
      */
     public static function checkName($name)
     {
@@ -136,9 +131,9 @@ class User
     }
 
     /**
-     * Проверяет телефон: не меньше, чем 10 символов
-     * @param string $phone <p>Телефон</p>
-     * @return boolean <p>Результат выполнения метода</p>
+     * Tests the phone: no less than 10
+     * @param string $phone <p>Phone</p>
+     * @return boolean <p>Execution result</p>
      */
     public static function checkPhone($phone)
     {
@@ -149,9 +144,9 @@ class User
     }
 
     /**
-     * Проверяет имя: не меньше, чем 6 символов
-     * @param string $password <p>Пароль</p>
-     * @return boolean <p>Результат выполнения метода</p>
+     * Checks name: no less than 6 characters
+     * @param string $password <p>Password</p>
+     * @return boolean <p>Execution result</p>
      */
     public static function checkPassword($password)
     {
@@ -162,9 +157,9 @@ class User
     }
 
     /**
-     * Проверяет email
+     * Checks email
      * @param string $email <p>E-mail</p>
-     * @return boolean <p>Результат выполнения метода</p>
+     * @return boolean <p>Execution result</p>
      */
     public static function checkEmail($email)
     {
@@ -175,19 +170,18 @@ class User
     }
 
     /**
-     * Проверяет не занят ли email другим пользователем
+     * Checks if the email is being used by another user
      * @param type $email <p>E-mail</p>
-     * @return boolean <p>Результат выполнения метода</p>
+     * @return boolean <p>Execution result</p>
      */
     public static function checkEmailExists($email)
     {
-        // Соединение с БД        
+
         $db = Db::getConnection();
 
-        // Текст запроса к БД
+
         $sql = 'SELECT COUNT(*) FROM user WHERE email = :email';
 
-        // Получение результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
         $result->execute();
@@ -198,9 +192,9 @@ class User
     }
 
     /**
-     * Возвращает пользователя с указанным id
-     * @param integer $id <p>id пользователя</p>
-     * @return array <p>Массив с информацией о пользователе</p>
+     * Returns the user with the specified id
+     * @param integer $id <p>user id</p>
+     * @return array <p>Array with information about the user</p>
      */
     public static function getUserById($id)
     {
@@ -208,7 +202,6 @@ class User
 
         $sql = 'SELECT * FROM user WHERE id = :id';
 
-        // Получение и возврат результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
 

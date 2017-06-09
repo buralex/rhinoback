@@ -29,7 +29,6 @@ class Author
 		$sql = 'SELECT author_name FROM authors WHERE author_id = :author_id';
 
 		$result = $db->prepare($sql);
-//		$result->bindParam(':author_id', $id, PDO::PARAM_INT);
 
 		$result->execute([':author_id' => $id]);
 
@@ -43,7 +42,6 @@ class Author
 		$sql = 'SELECT * FROM authors WHERE author_name = :author_name';
 
 		$result = $db->prepare($sql);
-//		$result->bindParam(':author_name', $author_name, PDO::PARAM_INT);
 
 		$result->execute([':author_name'=> $author_name]);
 

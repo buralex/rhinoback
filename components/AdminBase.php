@@ -1,15 +1,14 @@
 <?php
 
 /**
- * Абстрактный класс AdminBase содержит общую логику для контроллеров, которые 
- * используются в панели администратора
+ * Common logic for admin panel
  */
 
 abstract class AdminBase
 {
 
     /**
-     * Метод, который проверяет пользователя на то, является ли он администратором
+     * Check is admin or not
      * @return boolean
      */
     public static function checkAdmin()

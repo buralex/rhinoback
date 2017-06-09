@@ -8,7 +8,7 @@ class Book
     {
 		$db = Db::getConnection();
 
-		$sql = 'SELECT book_title FROM books WHERE book_id = :book_id';
+		$sql = 'SELECT * FROM books WHERE book_id = :book_id';
 
 		$result = $db->prepare($sql);
 		$result->bindParam(':book_id', $id, PDO::PARAM_INT);
@@ -59,7 +59,6 @@ class Book
 			return $bookList;
 		}
 	}
-
 
 
 	/**
@@ -208,7 +207,7 @@ class Book
 
 
 	/**
-	 * Updates book by id
+	 * Updates books by id
 	 */
     public static function updateBookById($id, $options, $authors_ids)
     {
@@ -221,7 +220,15 @@ class Book
         $result->bindParam(':book_title', $options['book_title'], PDO::PARAM_INT);
 		$result->execute();
 
-		$authors = explode(PHP_EOL, rtrim($options['authors'], PHP_EOL));
+		$authors_names = explode(PHP_EOL, trim($options['authors']));
+		$authors = [];
+
+		foreach ($authors_names as $author) {
+			if (!preg_match("~^[\s]+$~", $author)) {
+				$authors[] = trim($author);
+			}
+		}
+
 
 		$sql = "UPDATE authors SET author_name = :author_name WHERE author_id = :author_id";
 
@@ -240,11 +247,11 @@ class Book
 	{
 		$db = Db::getConnection();
 
-		$sql = 'SELECT COUNT(*) FROM books WHERE book_title LIKE ?';
+		$sql = 'SELECT COUNT(*) FROM books WHERE book_title = :book_title';
 
 		$result = $db->prepare($sql);
 
-		$result->execute(["%$book_title%"]); //bind param
+		$result->execute([":book_title" => $book_title]); //bind param
 
 		if ( $id_exist = $result->fetchColumn()){
 			return $id_exist;
@@ -258,11 +265,11 @@ class Book
 
 		$db = Db::getConnection();
 
-		$sql = 'SELECT author_id, COUNT(*) FROM authors WHERE author_name LIKE ?';
+		$sql = 'SELECT author_id, COUNT(*) FROM authors WHERE author_name = :author_name';
 
 		$result = $db->prepare($sql);
 
-		$result->execute(["%$author_name%"]);
+		$result->execute([":author_name" => $author_name]);
 
 		if ( $id_exist = $result->fetchColumn()){
 			return $id_exist;
@@ -274,6 +281,7 @@ class Book
 
     public static function createBook($options)
     {
+
         $db = Db::getConnection();
 
 		$sql = 'INSERT INTO books (book_title) VALUES (:book_title)';
@@ -284,7 +292,14 @@ class Book
 
         }
 
-		$authors = explode(PHP_EOL, rtrim($options['authors'], PHP_EOL));
+		$authors_names = explode(PHP_EOL, trim($options['authors']));
+		$authors = [];
+
+		foreach ($authors_names as $author) {
+			if (!preg_match("~^[\s]+$~", $author)) {
+				$authors[] = trim($author);
+			}
+		}
 
 		$sql = 'INSERT INTO authors (author_name) VALUES (:author_name)';
 		$result = $db->prepare($sql);
