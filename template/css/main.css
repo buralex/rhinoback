@@ -6,6 +6,9 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
 @import url(http://fonts.googleapis.com/css?family=Abel);
 
+* {
+    box-sizing: border-box;
+}
 body {
     font-family: 'Roboto', sans-serif;
     position: relative;
@@ -263,7 +266,9 @@ a#scrollUp i{
 
 .mainmenu ul li a:hover, .mainmenu ul li a.active,  .shop-menu ul li a.active{
     background:none;
-    color:#fdb45e;
+    color:#5e86fd;
+    background: rgba(0,0,0,0.05);
+    border-radius: 3px;
 }
 
 .search_box input {

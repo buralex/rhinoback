@@ -10,6 +10,7 @@
         <link href="/template/css/font-awesome.min.css" rel="stylesheet">
         <link href="/template/css/main.css" rel="stylesheet">
         <link href="/template/css/responsive.css" rel="stylesheet">
+        <link href="/template/css/auto-complete.css" rel="stylesheet">
 
         <!--[if lt IE 9]>
         <script src="js/html5shiv.js"></script>
@@ -73,9 +74,9 @@
                                 </div>
                                 <div class="mainmenu pull-left">
                                     <ul class="nav navbar-nav collapse navbar-collapse">
-                                        <li><a href="/reverse/" class="">1. REVERS ARRAY</a></li>
-                                        <li><a href="/extract/" class="">2. EXTRACT DOMAIN</a></li>
-                                        <li><a href="/library/" class="">3. LIBRARY</a></li>
+                                        <li><a href="/reverse/" class="<?= preg_match("~^reverse~", trim($_SERVER['REQUEST_URI'], '/'))?'active':'' ?>">1. REVERS ARRAY</a></li>
+                                        <li><a href="/extract/" class="<?= preg_match("~^extract~", trim($_SERVER['REQUEST_URI'], '/'))?'active':'' ?>">2. EXTRACT DOMAIN</a></li>
+                                        <li><a href="/library/" class="<?= preg_match("~^library~", trim($_SERVER['REQUEST_URI'], '/'))?'active':'' ?>">3. LIBRARY</a></li>
                                     </ul>
                                 </div>
                             </div>

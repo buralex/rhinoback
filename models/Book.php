@@ -10,48 +10,85 @@ class Book
 
 		$sql = 'SELECT book_title FROM books WHERE book_id = :book_id';
 
-
 		$result = $db->prepare($sql);
 		$result->bindParam(':book_id', $id, PDO::PARAM_INT);
 
-		$result->setFetchMode(PDO::FETCH_ASSOC);
-
 		$result->execute();
 
-		// Получение и возврат результатов
-		return $result->fetch();
+		return $result->fetch(PDO::FETCH_ASSOC);
     }
 
-	public static function getAuthorsByBookId($id)
+
+
+	public static function getBookByTitle($book_title)
 	{
 		$db = Db::getConnection();
 
-		$sql = ('SELECT author_name, authors.author_id '
-				.'FROM authors INNER JOIN books_authors '
-				.'ON authors.author_id = books_authors.author_id '
-				.'WHERE books_authors.book_id = :book_id');
-
+		$sql = 'SELECT * FROM books WHERE book_title = :book_title';
 
 		$result = $db->prepare($sql);
-		$result->bindParam(':book_id', $id, PDO::PARAM_INT);
-
-
-		$result->setFetchMode(PDO::FETCH_ASSOC);
+		$result->bindParam(':book_title', $book_title, PDO::PARAM_INT);
 
 		$result->execute();
 
-		// Получение и возврат результатов
-		return $result->fetchAll();
+		return $result->fetch(PDO::FETCH_ASSOC);
 	}
 
 
-    public static function getBooksList()
+	/**
+	 * Returns book list by book titles
+	 */
+	public static function getBookHints($book_title)
+	{
+		$db = Db::getConnection();
+
+		$bookList = [];
+
+		$sql = 'SELECT * FROM books WHERE book_title LIKE ?';
+
+		$result = $db->prepare($sql);
+
+		if ($result->execute(["%$book_title%"])) {
+
+			$row  = $result->fetchAll(PDO::FETCH_ASSOC);
+
+			foreach ($row as $item => $value){
+				$bookList[] = $value['book_title'];
+			}
+
+			return $bookList;
+		}
+	}
+
+
+
+	/**
+	 * Returns book list
+	 */
+	public static function getBookList()
+	{
+		$db = Db::getConnection();
+
+		$sql = ('SELECT * FROM books ORDER BY book_title');
+
+		$result = $db->prepare($sql);
+		$result->execute();
+
+		$bookList  = $result->fetchAll(PDO::FETCH_ASSOC);
+
+		return $bookList;
+	}
+
+	/**
+	 * Returns book list with all authors of each certain book
+	 */
+    public static function getBookListFull()
     {
 
         $db = Db::getConnection();
 
         // Получение и возврат результатов
-		$booksList = [];
+		$bookList = [];
 
 		$sql = ('SELECT book_title, author_name, books.book_id FROM books '
 				.'LEFT JOIN books_authors ON books.book_id = books_authors.book_id '
@@ -65,17 +102,20 @@ class Book
 
 
 		foreach ($row as $item) {
-			$booksList[] = $item;
+			$bookList[] = $item;
 		}
 
-        return $booksList;
+        return $bookList;
     }
 
+	/**
+	 * Returns book list written by certain author
+	 */
 	public static function getBooksByAuthorId($id)
 	{
 		$db = Db::getConnection();
 
-		//selects all of the books by the author name
+		//selects all of the books by the author id
 		$sql = ('SELECT book_title, b.book_id '
 			.'FROM books b LEFT JOIN books_authors ba '
 			.'ON (b.book_id = ba.book_id) '
@@ -93,6 +133,10 @@ class Book
 		}
 	}
 
+
+	/**
+	 * Returns book list filtered by quantity of authors
+	 */
 	public static function getFilteredBooks($num)
 	{
 		$db = Db::getConnection();
@@ -116,6 +160,10 @@ class Book
 	}
 
 
+
+	/**
+	 * Deletes book by id
+	 */
     public static function deleteBookById($id, $authors, $authors_ids)
     {
         $db = Db::getConnection();
@@ -159,6 +207,9 @@ class Book
     }
 
 
+	/**
+	 * Updates book by id
+	 */
     public static function updateBookById($id, $options, $authors_ids)
     {
         $db = Db::getConnection();

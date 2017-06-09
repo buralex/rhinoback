@@ -8,9 +8,13 @@ class AdminBookController extends AdminBase
     {
         self::checkAdmin();
 
-        $booksList = Book::getBooksList();
+        $bookList = Book::getBookListFull();
 
-        require_once(ROOT . '/views/admin_book/index.php');
+		$view = new View();
+		$view->bookList = $bookList;
+
+		$view->display('admin_book/index.php');
+
         return true;
     }
 
@@ -38,7 +42,7 @@ class AdminBookController extends AdminBase
 
 			if ($errors == false) {
 				$result = Book::createBook($options);
-			header("Location: /admin/book");
+				header("Location: /admin/book");
 			}
 		}
 
@@ -56,7 +60,7 @@ class AdminBookController extends AdminBase
 
         $book = Book::getBookById($id);
 
-        $authors = Book::getAuthorsByBookId($id);
+        $authors = Author::getAuthorsByBookId($id);
 		$authors_value = "";
 		$authors_ids = [];
 
@@ -93,7 +97,7 @@ class AdminBookController extends AdminBase
         if (isset($_POST['submit'])) {
 
 
-			$authors = Book::getAuthorsByBookId($id);
+			$authors = Author::getAuthorsByBookId($id);
 			$authors_ids = [];
 
 

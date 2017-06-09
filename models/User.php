@@ -204,21 +204,17 @@ class User
      */
     public static function getUserById($id)
     {
-        // Соединение с БД
         $db = Db::getConnection();
 
-        // Текст запроса к БД
         $sql = 'SELECT * FROM user WHERE id = :id';
 
         // Получение и возврат результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
 
-        // Указываем, что хотим получить данные в виде массива
-        $result->setFetchMode(PDO::FETCH_ASSOC);
         $result->execute();
 
-        return $result->fetch();
+        return $result->fetch(PDO::FETCH_ASSOC);
     }
 
 }

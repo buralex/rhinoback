@@ -1,12 +1,73 @@
 'use strict';
 
+    /**
+     * Sends search text via ajax
+     * @param params ()
+     * path
+     * searchText
+     * responseFnc (for autocomplete)
+     */
+    var sendSearchText = function(params) {
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", params.path + params.searchText, true);
+
+        xhttp.onload = function (oEvent) {
+            if (xhttp.status == 200) {
+                params.responseFnc(this.responseText);
+            } else {
+                throw new Error("Error! not sent!");
+            }
+        };
+        xhttp.send();
+    };
+
+    /*-----------------------------------------------------------
+     Autocomplete for book
+     ------------------------------------------------------------*/
+    var searchBook = new autoComplete({
+        selector: '#bookSearch',
+        minChars: 1,
+        source: function(searchText, response) {
+            var params = {
+                path: '/library/bookhint/',
+                searchText: searchText,
+                responseFnc: function(resp) {
+
+                    var jsonOptions = JSON.parse(resp);
+                    response(jsonOptions);
+                }
+            };
+            sendSearchText(params);
+        }
+    });
+
+    /*-----------------------------------------------------------
+     Autocomplete for author
+     ------------------------------------------------------------*/
+    var searchAuthor = new autoComplete({
+        selector: '#authorSearch',
+        minChars: 1,
+        source: function(searchText, response) {
+            var params = {
+                path: '/library/authorhint/',
+                searchText: searchText,
+                responseFnc: function(resp) {
+
+                    var jsonOptions = JSON.parse(resp);
+                    response(jsonOptions);
+                }
+            };
+            sendSearchText(params);
+        }
+    });
+
 /*--------------------------------------------------------
         SHOW HINTS when searching
 --------------------------------------------------------*/
 
 function showHint(params) {
     var xhttp = new XMLHttpRequest();
-    var formData = new FormData();
     var dataList = document.querySelector(params.dataList);
     var input = document.querySelector(params.input);
 
@@ -14,13 +75,11 @@ function showHint(params) {
         dataList.innerHTML = "";
         return;
     } else {
-        formData.append(input.name, input.value);
-
-        xhttp.open("POST", params.path, true);
+        xhttp.open("POST", params.path + input.value, true);
 
         xhttp.onload = function(oEvent) {
             if (xhttp.status == 200) {
-
+                console.log(this.responseText);
                 while (dataList.firstChild) {
                     dataList.removeChild(dataList.firstChild);
                 }
@@ -39,6 +98,7 @@ function showHint(params) {
                 alert("Error! not sent!");
             }
         };
-        xhttp.send(formData);
+        xhttp.send();
+
     }
 }

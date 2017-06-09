@@ -1,4 +1,3 @@
-<?php include ROOT . '/views/layouts/header.php'; ?>
 
 <section>
     <div class="container">
@@ -9,7 +8,7 @@
 
 			<?php foreach ($books as $book): ?>
                 <p>
-                    <a href="/book/<?= $book['book_id']; ?>">
+                    <a href="/library/book/<?= $book['book_id']; ?>">
 						<?= $book['book_title']; ?>
                     </a>
                 </p>
@@ -21,5 +20,3 @@
         </div>
     </div>
 </section>
-
-<?php include ROOT . '/views/layouts/footer.php'; ?>

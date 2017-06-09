@@ -12,13 +12,16 @@ return array(
 
 	//library
 	'library/filtered' => 'library/filtered', // LibraryController -> actionFiltered
+	'library/bookhint/(.+)' => 'library/bookhint/$1', // LibraryController -> actionBookHint
+	'library/authorhint/(.+)' => 'library/authorHint/$1', // LibraryController -> actionAuthorHint
+
+	'library/filterbooks/(.+)' => 'library/filterBooks/$1', // LibraryController -> actionFilterBooks
+	'library/filterauthors/(.+)' => 'library/filterAuthors/$1', // LibraryController -> actionFilterAuthors
+
+	'library/book/([0-9]+)' => 'library/showBook/$1', // LibraryController -> actionShowBook
+	'library/author/([0-9]+)' => 'library/showAuthor/$1', // LibraryController -> actionShowAuthor
 	'library' => 'library/index', // LibraryController -> actionIndex
 
-
-
-	// Book:
-	'book/([0-9]+)' => 'book/view/$1', // BookController -> actionView($1)
-	'author/([0-9]+)' => 'author/view/$1', // BookController -> actionView($1)
 
 	// Managing library:
 	'admin/book/create' => 'adminBook/create', // AdminBookController -> actionCreate

@@ -1,4 +1,3 @@
-<?php include ROOT . '/views/layouts/header.php'; ?>
 
 <section>
     <div class="container">
@@ -19,7 +18,7 @@
 
                     <div class="signup-form"><!--sign up form-->
                         <h2>Edit account</h2>
-                        <form action="#" method="post">
+                        <form action=" " method="post">
                             <p>Name:</p>
                             <input type="text" name="name" placeholder="Name" value="<?php echo $name; ?>"/>
                             
@@ -37,5 +36,3 @@
         </div>
     </div>
 </section>
-
-<?php include ROOT . '/views/layouts/footer.php'; ?>

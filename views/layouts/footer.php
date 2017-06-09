@@ -15,7 +15,21 @@
 <script src="/template/js/jquery.js"></script>
 <script src="/template/js/bootstrap.min.js"></script>
 <script src="/template/js/jquery.scrollUp.min.js"></script>
+<script src="/template/js/auto-complete.js"></script>
 <script src="/template/js/main.js"></script>
+
+
+<?php if ( preg_match("~^library~", trim($_SERVER['REQUEST_URI'], '/')) ) : ?>
+    <script src="/template/js/library.js"></script>
+<?php endif; ?>
+
+<?php if ( preg_match("~^library/book~", trim($_SERVER['REQUEST_URI'], '/')) ) : ?>
+    <script src="/template/js/library-book.js"></script>
+<?php endif; ?>
+
+<?php if ( preg_match("~^library/author~", trim($_SERVER['REQUEST_URI'], '/')) ) : ?>
+    <script src="/template/js/library-author.js"></script>
+<?php endif; ?>
 
 </body>
 </html>

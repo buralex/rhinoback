@@ -1,4 +1,3 @@
-<?php include ROOT . '/views/layouts/header_admin.php'; ?>
 
 <section>
     <div class="container">
@@ -27,12 +26,11 @@
                     <th>Edit book</th>
                     <th>Delete book</th>
                 </tr>
-                <?php foreach ($booksList as $book): ?>
+                <?php foreach ($bookList as $book): ?>
                     <tr>
                         <td><?php echo $book['book_id']; ?></td>
                         <td><?php echo $book['book_title']; ?></td>
                         <td><?php echo $book['author_name']; ?></td>
-<!--                        <td>--><?php //echo $book['price']; ?><!--</td>  -->
                         <td><a href="/admin/book/update/<?php echo $book['book_id']; ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
                         <td><a href="/admin/book/delete/<?php echo $book['book_id']; ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
                     </tr>
@@ -42,6 +40,4 @@
         </div>
     </div>
 </section>
-
-<?php include ROOT . '/views/layouts/footer_admin.php'; ?>
 

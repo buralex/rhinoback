@@ -4,34 +4,37 @@
 class SiteController
 {
 
-	private function getURI()
-	{
-		if (!empty($_SERVER['REQUEST_URI'])) {
-			return trim($_SERVER['REQUEST_URI'], '/');
-		}
-	}
-
     /**
      * Action для главной страницы
      */
     public function actionIndex()
     {
-		$uri = $this->getURI();
-        require_once ROOT . '/views/site/index.php';
+    	$view = new View();
+		$view->display('layouts/header.php');
+
+		$view->display('site/index.php');
+
+		$view->display('layouts/footer.php');
+
         return true;
     }
 
 
 	public function actionReverse()
 	{
-		$uri = $this->getURI();
-		require_once(ROOT . '/views/site/reverse.php');
+		$view = new View();
+		$view->display('layouts/header.php');
+
+		$view->display('site/reverse.php');
+
+		$view->display('layouts/footer.php');
+
 		return true;
 	}
 
 	public function actionExtract($action_name = 'extract')
 	{
-		$uri = $this->getURI();
+
 		require_once ROOT . '/views/site/extract.php';
 		return true;
 	}
